@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seguimiento de Proyectos - Dashboard</title>
+    <!-- Fuentes e íconos -->
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Estilos -->
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="logo">Aetherix</div>
+      <a href="#"><i class="fas fa-tachometer-alt"></i></a>
+      <a href="#"><i class="fas fa-briefcase"></i></a>
+      <a href="#" class="active"><i class="fas fa-chart-line"></i></a>
+      <a href="#"><i class="fas fa-cog"></i></a>
+    </div>
+    <div class="main">
+      <!-- Resumen General -->
+      <div id="summaryView">
+        <div class="topbar"><h1>Resumen General Aetherix</h1></div>
+        <div class="cards">
+          <div class="card">
+            <h3>Total de Proyectos</h3>
+            <div class="kpi">7</div>
+          </div>
+          <div class="card">
+            <h3>Uso Promedio de Presupuesto</h3>
+            <div class="kpi">57%</div>
+          </div>
+          <div class="card">
+            <h3>Proyectos en Riesgo</h3>
+            <div class="kpi red">2</div>
+          </div>
+          <div class="card">
+            <h3>Proyectos Sanos</h3>
+            <div class="kpi green">5</div>
+          </div>
+        </div>
+        <div class="table-container">
+          <h3>Top 5 Proyectos Más Cercanos a Superar Presupuesto</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Proyecto</th>
+                <th>Uso %</th>
+                <th>Indicador</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-proj-key="PintarNaveA">
+                <td>Pintar Nave A</td>
+                <td>88%</td>
+                <td>
+                  <div class="semaforo">
+                    <div
+                      class="fill"
+                      style="width: 88%; background: #f44336"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+              <tr data-proj-key="MantenimientoPlantaB">
+                <td>Mantenimiento Planta B</td>
+                <td>82%</td>
+                <td>
+                  <div class="semaforo">
+                    <div
+                      class="fill"
+                      style="width: 82%; background: #ff9800"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+              <tr data-proj-key="InstalacionLuzC">
+                <td>Instalación Luz C</td>
+                <td>76%</td>
+                <td>
+                  <div class="semaforo">
+                    <div
+                      class="fill"
+                      style="width: 76%; background: #ff9800"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+              <tr data-proj-key="RevestimientoD">
+                <td>Revestimiento D</td>
+                <td>68%</td>
+                <td>
+                  <div class="semaforo">
+                    <div
+                      class="fill"
+                      style="width: 68%; background: #ff9800"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+              <tr data-proj-key="LimpiezaIndustrialE">
+                <td>Limpieza Industrial E</td>
+                <td>45%</td>
+                <td>
+                  <div class="semaforo">
+                    <div
+                      class="fill"
+                      style="width: 45%; background: #4caf50"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-container">
+          <h3>Top 5 Proyectos Más Sanos</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Proyecto</th>
+                <th>Uso %</th>
+                <th>Indicador</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-proj-key="RevestimientoF">
+                <td>Revestimiento F</td>
+                <td>12%</td>
+                <td>
+                  <div class="semaforo">
+                    <div
+                      class="fill"
+                      style="width: 12%; background: #4caf50"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+              <tr data-proj-key="LimpiezaG">
+                <td>Limpieza G</td>
+                <td>20%</td>
+                <td>
+                  <div class="semaforo">
+                    <div
+                      class="fill"
+                      style="width: 20%; background: #4caf50"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+              <tr data-proj-key="PinturaH">
+                <td>Pintura H</td>
+                <td>34%</td>
+                <td>
+                  <div class="semaforo">
+                    <div
+                      class="fill"
+                      style="width: 34%; background: #4caf50"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+              <tr data-proj-key="MantenimientoI">
+                <td>Mantenimiento I</td>
+                <td>50%</td>
+                <td>
+                  <div class="semaforo">
+                    <div
+                      class="fill"
+                      style="width: 50%; background: #ff9800"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+              <tr data-proj-key="InstalacionJ">
+                <td>Instalación J</td>
+                <td>62%</td>
+                <td>
+                  <div class="semaforo">
+                    <div
+                      class="fill"
+                      style="width: 62%; background: #ff9800"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cards">
+          <div class="chart-container card">
+            <canvas id="usageChart"></canvas>
+          </div>
+          <div class="chart-container card">
+            <canvas id="statusChart"></canvas>
+          </div>
+        </div>
+        <div class="view-all">
+          <button id="btnViewAll">Ver Todos los Proyectos</button>
+        </div>
+      </div>
+
+      <!-- Detalle Proyecto -->
+      <div id="detailView" class="detail-view hidden">
+        <button class="back-btn" id="btnBack">
+          <i class="fas fa-arrow-left"></i>Volver al Resumen
+        </button>
+        <!-- Contenedor dinámico -->
+        <div id="detailContent"></div>
+      </div>
+    </div>
+
+    <!-- Offcanvas Derecho -->
+    <div class="offcanvas" id="offcanvas">
+      <div class="offcanvas-header">
+        <h3>Todos los Proyectos</h3>
+        <i class="fas fa-times close-btn" id="closeOff"></i>
+      </div>
+      <!-- Listado fijo -->
+      <div class="project-item" data-proj-key="PintarNaveA">
+        <h4>Pintar Nave A</h4>
+        <div class="info"><span>88%</span><span>$12K restante</span></div>
+        <div class="semaforo-mini">
+          <div class="fill" style="width: 88%; background: #f44336"></div>
+        </div>
+      </div>
+      <div class="project-item" data-proj-key="MantenimientoPlantaB">
+        <h4>Mantenimiento Planta B</h4>
+        <div class="info"><span>82%</span><span>$18K restante</span></div>
+        <div class="semaforo-mini">
+          <div class="fill" style="width: 82%; background: #ff9800"></div>
+        </div>
+      </div>
+      <div class="project-item" data-proj-key="InstalacionLuzC">
+        <h4>Instalación Luz C</h4>
+        <div class="info"><span>76%</span><span>$24K restante</span></div>
+        <div class="semaforo-mini">
+          <div class="fill" style="width: 76%; background: #ff9800"></div>
+        </div>
+      </div>
+      <div class="project-item" data-proj-key="RevestimientoD">
+        <h4>Revestimiento D</h4>
+        <div class="info"><span>68%</span><span>$32K restante</span></div>
+        <div class="semaforo-mini">
+          <div class="fill" style="width: 68%; background: #ff9800"></div>
+        </div>
+      </div>
+      <div class="project-item" data-proj-key="LimpiezaIndustrialE">
+        <h4>Limpieza Industrial E</h4>
+        <div class="info"><span>45%</span><span>$55K restante</span></div>
+        <div class="semaforo-mini">
+          <div class="fill" style="width: 45%; background: #4caf50"></div>
+        </div>
+      </div>
+      <div class="project-item" data-proj-key="ProyectoK">
+        <h4>Proyecto K</h4>
+        <div class="info"><span>30%</span><span>$70K restante</span></div>
+        <div class="semaforo-mini">
+          <div class="fill" style="width: 30%; background: #4caf50"></div>
+        </div>
+      </div>
+      <div class="project-item" data-proj-key="ProyectoL">
+        <h4>Proyecto L</h4>
+        <div class="info"><span>55%</span><span>$45K restante</span></div>
+        <div class="semaforo-mini">
+          <div class="fill" style="width: 55%; background: #ff9800"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Librería Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

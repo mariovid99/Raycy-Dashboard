@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión Total - Dashboard de Proyectos</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome for Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <style>
+      /* ================== VARIABLES & GLOBAL STYLES ================== */
+      :root {
+        --primary-color: #2a4d83; /* Dark Blue */
+        --secondary-color: #f0f2f5; /* Light Gray Background */
+        --card-bg-color: #ffffff;
+        --text-primary-color: #1c1c1e; /* Almost Black */
+        --text-secondary-color: #6c757d; /* Gray */
+        --border-color: #e6e8ec;
+        --shadow-color: rgba(0, 0, 0, 0.05);
+
+        --status-green: #28a745;
+        --status-yellow: #ffc107;
+        --status-red: #dc3545;
+
+        --font-family: "Inter", sans-serif;
+        --border-radius: 12px;
+        --card-padding: 24px;
+        --sidebar-width: 260px;
+        --sidebar-width-collapsed: 88px;
+        --header-height: 80px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: var(--font-family);
+        background-color: var(--secondary-color);
+        color: var(--text-primary-color);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--primary-color);
+        transition: color 0.3s ease;
+      }
+
+      a:hover {
+        color: #1e3a6b;
+      }
+
+      .card {
+        background-color: var(--card-bg-color);
+        border-radius: var(--border-radius);
+        padding: var(--card-padding);
+        box-shadow: 0 4px 12px var(--shadow-color);
+        border: 1px solid var(--border-color);
+      }
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .card-header h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-primary-color);
+      }
+
+      /* ================== LAYOUT ================== */
+      .dashboard-container {
+        display: flex;
+      }
+
+      .sidebar {
+        width: var(--sidebar-width);
+        background-color: var(--card-bg-color);
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid var(--border-color);
+        transition: width 0.3s ease;
+        z-index: 100;
+      }
+
+      .main-content {
+        flex-grow: 1;
+        margin-left: var(--sidebar-width);
+        padding: 2rem;
+        transition: margin-left 0.3s ease;
+      }
+
+      /* ================== SIDEBAR ================== */
+      .sidebar-header {
+        display: flex;
+        align-items: center;
+        padding: 24px;
+        height: var(--header-height);
+      }
+
+      .logo-icon {
+        font-size: 24px;
+        color: var(--primary-color);
+        margin-right: 12px;
+      }
+
+      .logo-text {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--text-primary-color);
+        white-space: nowrap;
+        opacity: 1;
+        transition: opacity 0.2s ease;
+      }
+
+      .sidebar-nav {
+        flex-grow: 1;
+        padding: 0 16px;
+      }
+
+      .sidebar-nav ul {
+        list-style: none;
+      }
+
+      .sidebar-nav a {
+        display: flex;
+        align-items: center;
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 4px;
+        color: var(--text-secondary-color);
+        font-weight: 500;
+      }
+
+      .sidebar-nav a i {
+        font-size: 18px;
+        width: 24px;
+        margin-right: 20px;
+        text-align: center;
+      }
+
+      .sidebar-nav a span {
+        white-space: nowrap;
+        opacity: 1;
+        transition: opacity 0.2s ease;
+      }
+
+      .sidebar-nav a:hover,
+      .sidebar-nav a.active {
+        background-color: var(--secondary-color);
+        color: var(--primary-color);
+      }
+
+      .sidebar-footer {
+        padding: 16px;
+        border-top: 1px solid var(--border-color);
+      }
+
+      .sidebar-footer a {
+        display: flex;
+        align-items: center;
+        padding: 12px;
+        border-radius: 8px;
+        color: var(--text-secondary-color);
+        font-weight: 500;
+      }
+
+      .sidebar-footer a:hover {
+        background-color: var(--secondary-color);
+      }
+
+      .sidebar-footer a i {
+        margin-right: 20px;
+        transition: transform 0.3s ease;
+      }
+
+      .sidebar-footer a span {
+        white-space: nowrap;
+        opacity: 1;
+      }
+
+      /* Collapsed Sidebar Styles */
+      .sidebar.collapsed {
+        width: var(--sidebar-width-collapsed);
+      }
+
+      .sidebar.collapsed .logo-text,
+      .sidebar.collapsed .sidebar-nav span,
+      .sidebar.collapsed .sidebar-footer span {
+        opacity: 0;
+        width: 0;
+        overflow: hidden;
+      }
+
+      .sidebar.collapsed .sidebar-nav a i,
+      .sidebar.collapsed .sidebar-footer a i {
+        margin-right: 0;
+      }
+
+      .sidebar.collapsed .sidebar-footer a i {
+        transform: rotate(180deg);
+      }
+
+      .main-content.collapsed {
+        margin-left: var(--sidebar-width-collapsed);
+      }
+
+      /* ================== MAIN CONTENT HEADER ================== */
+      .main-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .header-title h2 {
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
+
+      .header-title p {
+        color: var(--text-secondary-color);
+        font-size: 1rem;
+      }
+
+      .header-user {
+        display: flex;
+        align-items: center;
+      }
+
+      .user-info {
+        text-align: right;
+        margin-right: 16px;
+      }
+
+      .user-name {
+        display: block;
+        font-weight: 600;
+      }
+
+      .user-role {
+        display: block;
+        font-size: 0.85rem;
+        color: var(--text-secondary-color);
+      }
+
+      .user-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      /* ================== SUMMARY CARDS ================== */
+      .summary-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .summary-card {
+        display: flex;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .summary-card-icon {
+        font-size: 24px;
+        padding: 16px;
+        border-radius: 50%;
+        margin-right: 16px;
+        color: var(--primary-color);
+        background-color: #e9eef5;
+      }
+
+      .summary-card-info h4 {
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+
+      .summary-card-info p {
+        color: var(--text-secondary-color);
+        font-size: 0.9rem;
+      }
+
+      /* ================== DASHBOARD GRID ================== */
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-template-rows: auto auto;
+        gap: 1.5rem;
+      }
+
+      .projects-section {
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+      }
+
+      .purchase-orders-section {
+        grid-column: 1 / 3;
+        grid-row: 2 / 3;
+      }
+
+      .secondary-grid {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      /* ================== PROJECTS SECTION ================== */
+      .view-all-btn {
+        font-size: 0.85rem;
+        font-weight: 600;
+        padding: 6px 12px;
+        border-radius: 6px;
+        background-color: var(--secondary-color);
+      }
+      .view-all-btn:hover {
+        background-color: #e0e2e5;
+      }
+
+      .projects-list .project-item {
+        display: flex;
+        align-items: center;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .projects-list .project-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+      .projects-list .project-item:first-child {
+        padding-top: 0;
+      }
+
+      .project-details {
+        flex-grow: 1;
+      }
+
+      .project-details h4 {
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .project-budget-info {
+        font-size: 0.85rem;
+        color: var(--text-secondary-color);
+      }
+
+      .project-budget-info .cost {
+        font-weight: 600;
+        color: var(--text-primary-color);
+      }
+
+      .progress-bar-container {
+        width: 100%;
+        background-color: var(--secondary-color);
+        border-radius: 10px;
+        height: 8px;
+        margin-top: 8px;
+        overflow: hidden;
+      }
+
+      .progress-bar {
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease-in-out;
+      }
+      .progress-bar.green {
+        background-color: var(--status-green);
+      }
+      .progress-bar.yellow {
+        background-color: var(--status-yellow);
+      }
+      .progress-bar.red {
+        background-color: var(--status-red);
+      }
+
+      .project-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-left: 20px;
+      }
+
+      .action-btn {
+        background: none;
+        border: 1px solid var(--border-color);
+        color: var(--text-secondary-color);
+        padding: 8px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .action-btn:hover {
+        background-color: var(--secondary-color);
+        border-color: #d8dbe0;
+        color: var(--text-primary-color);
+      }
+
+      /* ================== PURCHASE ORDERS TABLE ================== */
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 12px 16px;
+        text-align: left;
+        border-bottom: 1px solid var(--border-color);
+        white-space: nowrap;
+      }
+
+      th {
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: var(--text-secondary-color);
+        background-color: #fafafa;
+      }
+
+      tbody tr:hover {
+        background-color: #fafbfd;
+      }
+
+      td .details-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        color: var(--text-secondary-color);
+      }
+      td .details-btn:hover {
+        color: var(--primary-color);
+      }
+
+      /* ================== FINANCIAL OVERVIEW & CLIENTS ================== */
+      .chart-container {
+        padding-top: 10px;
+      }
+
+      #financial-chart {
+        width: 100% !important;
+        height: auto !important;
+      }
+
+      .clients-list {
+        list-style: none;
+      }
+
+      .client-item {
+        display: flex;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .client-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+
+      .client-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        margin-right: 12px;
+      }
+
+      .client-info .name {
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+
+      .client-info .company {
+        font-size: 0.85rem;
+        color: var(--text-secondary-color);
+      }
+
+      /* ================== MODAL ================== */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+      }
+
+      .modal-overlay.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .modal-content {
+        background-color: var(--card-bg-color);
+        padding: 32px;
+        border-radius: var(--border-radius);
+        width: 90%;
+        max-width: 500px;
+        position: relative;
+        transform: translateY(-20px);
+        transition: transform 0.3s ease;
+      }
+
+      .modal-overlay.visible .modal-content {
+        transform: translateY(0);
+      }
+
+      .modal-close-btn {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        color: var(--text-secondary-color);
+      }
+
+      .modal-content h3 {
+        margin-bottom: 24px;
+        font-size: 1.4rem;
+        font-weight: 600;
+      }
+
+      .modal-body .detail-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .modal-body .detail-item:last-child {
+        border-bottom: none;
+      }
+
+      .modal-body .detail-label {
+        font-weight: 600;
+        color: var(--text-secondary-color);
+      }
+
+      .modal-body .detail-value {
+        font-weight: 500;
+        text-align: right;
+      }
+
+      .modal-body .detail-value .status {
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+
+      .modal-body .detail-value .status.delivered {
+        background-color: #e9f7ec;
+        color: var(--status-green);
+      }
+
+      .modal-body .detail-value .status.pending {
+        background-color: #fff8e7;
+        color: var(--status-yellow);
+      }
+
+      /* ================== RESPONSIVENESS ================== */
+      @media (max-width: 1200px) {
+        .dashboard-grid {
+          grid-template-columns: 1fr;
+        }
+        .projects-section,
+        .secondary-grid,
+        .purchase-orders-section {
+          grid-column: 1 / -1;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .sidebar {
+          width: var(--sidebar-width-collapsed);
+        }
+        .main-content {
+          margin-left: var(--sidebar-width-collapsed);
+          padding: 1rem;
+        }
+        .sidebar .logo-text,
+        .sidebar .sidebar-nav span,
+        .sidebar .sidebar-footer span {
+          opacity: 0;
+          width: 0;
+          overflow: hidden;
+        }
+        .sidebar .sidebar-nav a i,
+        .sidebar .sidebar-footer a i {
+          margin-right: 0;
+        }
+        .sidebar-footer {
+          display: none; /* Hide collapse button on mobile */
+        }
+        .main-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1rem;
+        }
+        .summary-cards {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <!-- ================== SIDEBAR ================== -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <i class="fa-solid fa-rocket logo-icon"></i>
+          <h1 class="logo-text">Gestión Total</h1>
+        </div>
+        <nav class="sidebar-nav">
+          <ul>
+            <li>
+              <a href="#" class="active"
+                ><i class="fa-solid fa-table-columns"></i
+                ><span>Panel Principal</span></a
+              >
+            </li>
+            <li>
+              <a href="#"
+                ><i class="fa-solid fa-diagram-project"></i
+                ><span>Proyectos</span></a
+              >
+            </li>
+            <li>
+              <a href="#"
+                ><i class="fa-solid fa-file-invoice-dollar"></i
+                ><span>Órdenes de Compra</span></a
+              >
+            </li>
+            <li>
+              <a href="#"
+                ><i class="fa-solid fa-users"></i><span>Clientes</span></a
+              >
+            </li>
+            <li>
+              <a href="#"
+                ><i class="fa-solid fa-chart-pie"></i><span>Reportes</span></a
+              >
+            </li>
+          </ul>
+        </nav>
+        <div class="sidebar-footer">
+          <a href="#" id="sidebar-toggle">
+            <i class="fa-solid fa-chevron-left"></i>
+            <span>Colapsar</span>
+          </a>
+        </div>
+      </aside>
+
+      <!-- ================== MAIN CONTENT ================== -->
+      <main class="main-content" id="main-content">
+        <!-- Header -->
+        <header class="main-header">
+          <div class="header-title">
+            <h2>Panel Principal</h2>
+            <p>
+              Bienvenido, Director de Proyectos. Aquí tienes la vista 360° de tu
+              operación.
+            </p>
+          </div>
+          <div class="header-user">
+            <div class="user-info">
+              <span class="user-name">Ana Mendoza</span>
+              <span class="user-role">Directora de Proyectos</span>
+            </div>
+            <img
+              src="https://placehold.co/40x40/E6E8EC/333?text=AM"
+              alt="Avatar de usuario"
+              class="user-avatar"
+            />
+          </div>
+        </header>
+
+        <!-- Summary Cards -->
+        <section class="summary-cards" id="summary-cards-container">
+          <!-- Cards will be injected by JS -->
+        </section>
+
+        <!-- Main Dashboard Area -->
+        <div class="dashboard-grid">
+          <!-- Projects Section -->
+          <section class="projects-section card">
+            <div class="card-header">
+              <h3>Proyectos Activos</h3>
+              <a href="#" class="view-all-btn">Ver todos</a>
+            </div>
+            <div class="projects-list" id="projects-list-container">
+              <!-- Project items will be injected by JS -->
+            </div>
+          </section>
+
+          <!-- Purchase Orders Section -->
+          <section class="purchase-orders-section card">
+            <div class="card-header">
+              <h3>Órdenes de Compra Recientes</h3>
+            </div>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Concepto</th>
+                    <th>Comprador</th>
+                    <th>Monto</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="purchase-orders-tbody">
+                  <!-- Table rows will be injected by JS -->
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- Financial Overview & Clients -->
+          <div class="secondary-grid">
+            <section class="financial-overview-section card">
+              <div class="card-header">
+                <h3>Visión Financiera de Proyectos</h3>
+              </div>
+              <div class="chart-container">
+                <canvas id="financial-chart" width="400" height="220"></canvas>
+              </div>
+            </section>
+            <section class="clients-section card">
+              <div class="card-header">
+                <h3>Clientes Principales</h3>
+              </div>
+              <ul class="clients-list" id="clients-list-container">
+                <!-- Client items will be injected by JS -->
+              </ul>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ================== MODAL ================== -->
+    <div class="modal-overlay" id="po-modal-overlay">
+      <div class="modal-content" id="po-modal-content">
+        <button class="modal-close-btn" id="modal-close-btn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <h3 id="modal-title">Detalles de la Orden de Compra</h3>
+        <div class="modal-body" id="modal-body">
+          <!-- Modal details will be injected by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // ================== DATOS DUMMY ==================
+        const projectsData = [
+          {
+            name: "Desarrollo Edificio Corporativo 'Zenith'",
+            budget: 250000,
+            cost: 145000,
+          },
+          {
+            name: "Implementación de Infraestructura Cloud",
+            budget: 80000,
+            cost: 71000,
+          },
+          {
+            name: "Campaña de Marketing Digital Q3",
+            budget: 45000,
+            cost: 15000,
+          },
+        ];
+
+        const purchaseOrdersData = [
+          {
+            id: "po-1",
+            concept: "Compra de licencias de software",
+            buyer: "Luis Martínez",
+            amount: 3500,
+            date: "2025-07-22",
+            provider: "Tech Solutions Inc.",
+            paymentMethod: "Transferencia",
+            invoice: "INV-2025-789",
+            status: "Entregado",
+            comments: "Licencias para equipo de desarrollo.",
+          },
+          {
+            id: "po-2",
+            concept: "Material de oficina y papelería",
+            buyer: "Sofía García",
+            amount: 850,
+            date: "2025-07-20",
+            provider: "OfiSupply S.A.",
+            paymentMethod: "Tarjeta de Crédito",
+            invoice: "INV-2025-790",
+            status: "Entregado",
+            comments: "Suministros para el mes.",
+          },
+          {
+            id: "po-3",
+            concept: "Servidores para infraestructura",
+            buyer: "Luis Martínez",
+            amount: 12500,
+            date: "2025-07-18",
+            provider: "Global Servers Co.",
+            paymentMethod: "Crédito 30 días",
+            invoice: "INV-2025-780",
+            status: "Pendiente",
+            comments: "Entrega programada para el 30/07.",
+          },
+          {
+            id: "po-4",
+            concept: "Servicio de catering para evento",
+            buyer: "Ana Mendoza",
+            amount: 2200,
+            date: "2025-07-15",
+            provider: "Eventos Gourmet",
+            paymentMethod: "Anticipo 50%",
+            invoice: "INV-2025-775",
+            status: "Entregado",
+            comments: "Evento de lanzamiento de proyecto.",
+          },
+          {
+            id: "po-5",
+            concept: "Consultoría UX/UI",
+            buyer: "Sofía García",
+            amount: 6000,
+            date: "2025-07-10",
+            provider: "Diseño Creativo Ltda.",
+            paymentMethod: "Transferencia",
+            invoice: "INV-2025-771",
+            status: "Entregado",
+            comments: "Fase 1 del rediseño de la app.",
+          },
+        ];
+
+        const clientsData = [
+          { name: "Innovatec Corp.", contact: "Carlos Rivera", avatar: "IC" },
+          {
+            name: "Constructora Andina",
+            contact: "Beatriz Londoño",
+            avatar: "CA",
+          },
+          {
+            name: "Soluciones Logísticas",
+            contact: "David Ortiz",
+            avatar: "SL",
+          },
+        ];
+
+        // ================== FUNCIONES DE RENDERIZADO ==================
+
+        // Función para formatear moneda
+        const formatCurrency = (amount) => {
+          return new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "USD",
+          }).format(amount);
+        };
+
+        // Renderizar tarjetas de resumen
+        function renderSummaryCards() {
+          const totalProjects = projectsData.length;
+          const totalClients = clientsData.length;
+          const totalSpent = projectsData.reduce((acc, p) => acc + p.cost, 0);
+          const totalBudget = projectsData.reduce(
+            (acc, p) => acc + p.budget,
+            0
+          );
+          const remainingBudget = totalBudget - totalSpent;
+
+          const summaryData = [
+            {
+              icon: "fa-diagram-project",
+              value: totalProjects,
+              label: "Proyectos Activos",
+            },
+            {
+              icon: "fa-users",
+              value: totalClients,
+              label: "Clientes Totales",
+            },
+            {
+              icon: "fa-dollar-sign",
+              value: formatCurrency(totalSpent),
+              label: "Gasto Acumulado",
+            },
+            {
+              icon: "fa-wallet",
+              value: formatCurrency(remainingBudget),
+              label: "Presupuesto Global",
+            },
+          ];
+
+          const container = document.getElementById("summary-cards-container");
+          container.innerHTML = summaryData
+            .map(
+              (item) => `
+                    <div class="summary-card card">
+                        <div class="summary-card-icon">
+                            <i class="fa-solid ${item.icon}"></i>
+                        </div>
+                        <div class="summary-card-info">
+                            <h4>${item.value}</h4>
+                            <p>${item.label}</p>
+                        </div>
+                    </div>
+                `
+            )
+            .join("");
+        }
+
+        // Renderizar lista de proyectos
+        function renderProjects() {
+          const container = document.getElementById("projects-list-container");
+          container.innerHTML = projectsData
+            .map((project) => {
+              const percentage = (project.cost / project.budget) * 100;
+              let statusColorClass = "green";
+              if (percentage > 80) {
+                statusColorClass = "red";
+              } else if (percentage >= 50) {
+                statusColorClass = "yellow";
+              }
+
+              return `
+                        <div class="project-item">
+                            <div class="project-details">
+                                <h4>${project.name}</h4>
+                                <p class="project-budget-info">
+                                    <span class="cost">${formatCurrency(
+                                      project.cost
+                                    )}</span> / ${formatCurrency(
+                project.budget
+              )}
+                                </p>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar ${statusColorClass}" style="width: ${percentage}%;"></div>
+                                </div>
+                            </div>
+                            <div class="project-actions">
+                                <button class="action-btn" title="Editar"><i class="fa-solid fa-pencil"></i></button>
+                                <button class="action-btn" title="Ver Detalles"><i class="fa-solid fa-eye"></i></button>
+                            </div>
+                        </div>
+                    `;
+            })
+            .join("");
+        }
+
+        // Renderizar tabla de órdenes de compra
+        function renderPurchaseOrders() {
+          const tbody = document.getElementById("purchase-orders-tbody");
+          tbody.innerHTML = purchaseOrdersData
+            .map(
+              (po) => `
+                    <tr data-id="${po.id}">
+                        <td>${po.concept}</td>
+                        <td>${po.buyer}</td>
+                        <td>${formatCurrency(po.amount)}</td>
+                        <td>${po.date}</td>
+                        <td>
+                            <button class="details-btn" title="Ver Detalles">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `
+            )
+            .join("");
+        }
+
+        // Renderizar lista de clientes
+        function renderClients() {
+          const container = document.getElementById("clients-list-container");
+          container.innerHTML = clientsData
+            .map(
+              (client) => `
+                     <li class="client-item">
+                        <div class="client-avatar">${client.avatar}</div>
+                        <div class="client-info">
+                            <div class="name">${client.name}</div>
+                            <div class="company">${client.contact}</div>
+                        </div>
+                    </li>
+                `
+            )
+            .join("");
+        }
+
+        // Renderizar gráfico financiero
+        function renderFinancialChart() {
+          const ctx = document
+            .getElementById("financial-chart")
+            .getContext("2d");
+          const projectNames = projectsData.map(
+            (p) => p.name.substring(0, 15) + "..."
+          );
+          const projectCosts = projectsData.map((p) => p.cost);
+          const projectBudgets = projectsData.map((p) => p.budget);
+
+          new Chart(ctx, {
+            type: "bar",
+            data: {
+              labels: projectNames,
+              datasets: [
+                {
+                  label: "Costo Actual",
+                  data: projectCosts,
+                  backgroundColor: "#2A4D83",
+                  borderColor: "#2A4D83",
+                  borderWidth: 1,
+                  borderRadius: 5,
+                },
+                {
+                  label: "Presupuesto",
+                  data: projectBudgets,
+                  backgroundColor: "#E6E8EC",
+                  borderColor: "#E6E8EC",
+                  borderWidth: 1,
+                  borderRadius: 5,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  ticks: {
+                    callback: function (value) {
+                      return "$" + value / 1000 + "k";
+                    },
+                  },
+                },
+                x: {
+                  grid: {
+                    display: false,
+                  },
+                },
+              },
+              plugins: {
+                legend: {
+                  position: "top",
+                  align: "end",
+                  labels: {
+                    boxWidth: 12,
+                    font: {
+                      size: 12,
+                    },
+                  },
+                },
+                tooltip: {
+                  callbacks: {
+                    label: function (context) {
+                      return `${context.dataset.label}: ${formatCurrency(
+                        context.raw
+                      )}`;
+                    },
+                  },
+                },
+              },
+            },
+          });
+        }
+
+        // ================== MANEJO DE EVENTOS ==================
+
+        // Toggle de la Sidebar
+        const sidebarToggle = document.getElementById("sidebar-toggle");
+        const sidebar = document.getElementById("sidebar");
+        const mainContent = document.getElementById("main-content");
+
+        sidebarToggle.addEventListener("click", (e) => {
+          e.preventDefault();
+          sidebar.classList.toggle("collapsed");
+          mainContent.classList.toggle("collapsed");
+        });
+
+        // Manejo del Modal de Órdenes de Compra
+        const poTableBody = document.getElementById("purchase-orders-tbody");
+        const modalOverlay = document.getElementById("po-modal-overlay");
+        const modalCloseBtn = document.getElementById("modal-close-btn");
+        const modalBody = document.getElementById("modal-body");
+
+        poTableBody.addEventListener("click", function (e) {
+          const detailsButton = e.target.closest(".details-btn");
+          if (detailsButton) {
+            const row = detailsButton.closest("tr");
+            const poId = row.dataset.id;
+            const poData = purchaseOrdersData.find((po) => po.id === poId);
+
+            if (poData) {
+              modalBody.innerHTML = `
+                            <div class="detail-item">
+                                <span class="detail-label">Concepto</span>
+                                <span class="detail-value">${
+                                  poData.concept
+                                }</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Comprador</span>
+                                <span class="detail-value">${
+                                  poData.buyer
+                                }</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Monto</span>
+                                <span class="detail-value">${formatCurrency(
+                                  poData.amount
+                                )}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Fecha</span>
+                                <span class="detail-value">${poData.date}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Proveedor</span>
+                                <span class="detail-value">${
+                                  poData.provider
+                                }</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Forma de Pago</span>
+                                <span class="detail-value">${
+                                  poData.paymentMethod
+                                }</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Factura</span>
+                                <span class="detail-value">${
+                                  poData.invoice
+                                }</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Estado</span>
+                                <span class="detail-value">
+                                    <span class="status ${
+                                      poData.status === "Entregado"
+                                        ? "delivered"
+                                        : "pending"
+                                    }">
+                                        ${poData.status}
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Comentarios</span>
+                                <span class="detail-value">${
+                                  poData.comments
+                                }</span>
+                            </div>
+                        `;
+              modalOverlay.classList.add("visible");
+            }
+          }
+        });
+
+        function closeModal() {
+          modalOverlay.classList.remove("visible");
+        }
+
+        modalCloseBtn.addEventListener("click", closeModal);
+        modalOverlay.addEventListener("click", function (e) {
+          if (e.target === modalOverlay) {
+            closeModal();
+          }
+        });
+
+        // ================== INICIALIZACIÓN ==================
+
+        // Todas las funciones de renderizado se llaman al cargar el DOM
+        renderSummaryCards();
+        renderProjects();
+        renderPurchaseOrders();
+        renderClients();
+        renderFinancialChart();
+      });
+    </script>
+  </body>
+</html>
