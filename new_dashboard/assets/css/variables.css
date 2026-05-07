@@ -1,0 +1,107 @@
+/* Design tokens — Raycy Dashboard */
+:root {
+  /* Neutral surface */
+  --bg-canvas: #FFFFFF;
+  --bg-subtle: #F7F8FA;
+  --bg-muted: #F1F3F7;
+  --surface: #FFFFFF;
+  --surface-hover: #F9FAFC;
+  --border-subtle: #EEF0F4;
+  --border: #E1E5EC;
+  --border-strong: #C9CFD9;
+
+  /* Text */
+  --text-primary: #0A0A0B;
+  --text-secondary: #4A5160;
+  --text-tertiary: #8B92A1;
+  --text-on-blue: #FFFFFF;
+
+  /* Brand blue scale */
+  --blue-50: #EEF4FF;
+  --blue-100: #D9E5FF;
+  --blue-200: #B7CCFF;
+  --blue-300: #88AAFF;
+  --blue-400: #5483FF;
+  --blue-500: #1E5EFF;
+  --blue-600: #1448D6;
+  --blue-700: #0B36A8;
+  --blue-800: #07287D;
+  --blue-900: #041A55;
+
+  /* Semantic — uso restringido solo para estados */
+  --success-bg: #E8F7F0;
+  --success-fg: #0E8A5F;
+  --warning-bg: #FFF4E0;
+  --warning-fg: #B36A00;
+  --danger-bg: #FDECEC;
+  --danger-fg: #C8281A;
+
+  /* Chart palette */
+  --chart-1: #1E5EFF;
+  --chart-2: #88AAFF;
+  --chart-3: #2B3140;
+  --chart-4: #8B92A1;
+  --chart-5: #0B36A8;
+  --chart-6: #B7CCFF;
+
+  /* Typography scale */
+  --fs-display: 36px;
+  --lh-display: 44px;
+  --fw-display: 700;
+  --fs-h1: 28px;
+  --lh-h1: 36px;
+  --fw-h1: 700;
+  --fs-h2: 22px;
+  --lh-h2: 30px;
+  --fw-h2: 600;
+  --fs-h3: 17px;
+  --lh-h3: 24px;
+  --fw-h3: 600;
+  --fs-body: 14px;
+  --lh-body: 20px;
+  --fw-body: 400;
+  --fs-sm: 13px;
+  --lh-sm: 18px;
+  --fw-sm: 500;
+  --fs-xs: 11px;
+  --lh-xs: 14px;
+  --fw-xs: 600;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* Border radii */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-1: 0 1px 2px rgba(15,23,42,0.04), 0 1px 1px rgba(15,23,42,0.03);
+  --shadow-2: 0 1px 3px rgba(15,23,42,0.06), 0 4px 12px rgba(15,23,42,0.05);
+  --shadow-3: 0 8px 24px rgba(15,23,42,0.08);
+  --shadow-focus: 0 0 0 3px rgba(30,94,255,0.18);
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-micro: 120ms;
+  --dur-default: 220ms;
+  --dur-long: 360ms;
+  --dur-chart: 600ms;
+
+  /* Layout */
+  --sidebar-collapsed: 64px;
+  --sidebar-expanded: 232px;
+  --topbar-height: 64px;
+  --content-max: 1440px;
+  --content-padding: 32px;
+}

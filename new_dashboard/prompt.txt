@@ -1,0 +1,87 @@
+==============================================================================
+RAYCY · DASHBOARD EJECUTIVO — PROMPT MAESTRO PARA AGENTES
+==============================================================================
+
+Eres un agente de ingeniería que va a construir (o continuar construyendo) un
+dashboard web ejecutivo para Grupo Raycy. Sigue al pie de la letra las
+instrucciones de este archivo.
+
+------------------------------------------------------------------------------
+PASO 0 · ANTES DE TOCAR CÓDIGO
+------------------------------------------------------------------------------
+1. Lee COMPLETO el archivo CLAUDE.md de este directorio. Contiene la
+   especificación funcional, técnica y visual del dashboard. Es la fuente
+   única de verdad. No improvises fuera de él.
+2. Lee COMPLETO el archivo bitacora.md. Ahí están registradas las decisiones
+   tomadas y los archivos que ya fueron creados o modificados por agentes
+   anteriores. NO repitas trabajo y NO rompas lo que ya está hecho.
+3. Inspecciona el directorio del proyecto y compara con la sección
+   "ESTRUCTURA DE ARCHIVOS" de CLAUDE.md para saber qué falta.
+4. Examina el archivo dashboard_data.json (raíz de new_dashboard/). Es la
+   ÚNICA fuente de datos. Todo el dashboard debe leer de ahí. No inventes
+   datos, no hardcodees números.
+
+------------------------------------------------------------------------------
+PASO 1 · DECIDE TU TAREA
+------------------------------------------------------------------------------
+Mira la sección "PLAN DE TRABAJO POR FASES" de CLAUDE.md y la "TABLA DE
+PROGRESO" en bitacora.md. Identifica el primer ítem cuyo estado sea
+"PENDIENTE". Si hay un ítem "EN PROGRESO" abandonado por otro agente, retómalo.
+
+Si no hay nada pendiente, ejecuta el "PASO 5 · QA Y PULIDO" descrito en
+CLAUDE.md.
+
+------------------------------------------------------------------------------
+PASO 2 · TRABAJA
+------------------------------------------------------------------------------
+1. Antes de escribir, abre los archivos vecinos que vas a tocar para alinearte
+   al estilo, naming y patrones existentes.
+2. Respeta el sistema de diseño definido en CLAUDE.md sin desviaciones:
+   - Solo HTML, CSS y JavaScript vanilla. Permitido Chart.js vía CDN.
+   - Nada de frameworks (sin React, Vue, Angular, Svelte, etc).
+   - Nada de bundlers, ni npm, ni TypeScript, ni preprocesadores.
+   - Nada de emojis en el UI. Iconos profesionales SVG inline (Lucide).
+   - Tema claro. Paleta azul controlada (ver CLAUDE.md §DISEÑO).
+3. Todos los números, listas, tablas y gráficas deben alimentarse del JSON.
+4. Confirma que tu cambio funciona abriendo index.html en un navegador
+   (file:// es válido — el JSON debe cargarse vía fetch relativo). Si la
+   carga local falla por CORS, documenta cómo correrlo con un servidor
+   estático (`python -m http.server 8000`) en bitacora.md.
+
+------------------------------------------------------------------------------
+PASO 3 · REGISTRA TU AVANCE
+------------------------------------------------------------------------------
+Edita bitacora.md ANTES de terminar tu turno:
+1. Marca tu ítem como "COMPLETO" en la "TABLA DE PROGRESO".
+2. Agrega una entrada nueva en la sección "REGISTRO CRONOLÓGICO" con:
+   - Fecha y hora ISO.
+   - Identificador del agente (ej: agent-front-01, agent-data-02).
+   - Lista de archivos creados/modificados con una línea de descripción.
+   - Decisiones técnicas relevantes que el siguiente agente debe conocer.
+   - Pendientes detectados (bugs, dudas, mejoras).
+3. Si tomaste una decisión que se aparta de CLAUDE.md, justifícalo y
+   actualiza CLAUDE.md en la sección correspondiente para mantener
+   coherencia.
+
+------------------------------------------------------------------------------
+PASO 4 · REGLAS NEGOCIABLES (PROHIBIDAS)
+------------------------------------------------------------------------------
+- No subas dependencias nuevas más allá de Chart.js (CDN) y Google Fonts (Inter).
+- No uses emojis en HTML, CSS ni en strings de UI.
+- No uses colores ajenos a la paleta de CLAUDE.md.
+- No agregues sidebar adicional ni navegación que no esté especificada.
+- No mezcles inglés/español en los textos visibles. Todo el UI va en español.
+- No dejes datos hardcodeados de ejemplo en producción.
+- No cambies la estructura del JSON.
+
+------------------------------------------------------------------------------
+PASO 5 · ENTREGA
+------------------------------------------------------------------------------
+Al terminar tu turno, deja:
+- Código funcional (no roto a medias).
+- bitacora.md actualizado.
+- Un mensaje final corto al humano resumiendo: qué hiciste, qué sigue.
+
+==============================================================================
+FIN DEL PROMPT — Ahora ve y ejecuta. Empieza por leer CLAUDE.md.
+==============================================================================

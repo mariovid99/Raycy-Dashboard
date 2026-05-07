@@ -1,0 +1,96 @@
+/* Estilos de contenedores de gráficas — Raycy Dashboard */
+
+.chart-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.chart-wrap--sm  { height: 160px; }
+.chart-wrap--md  { height: 260px; }
+.chart-wrap--lg  { height: 340px; }
+.chart-wrap--xl  { height: 420px; }
+
+/* Leyenda customizada */
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+.chart-legend__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+.chart-legend__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Donut con centro */
+.donut-wrap {
+  position: relative;
+}
+.donut-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+}
+.donut-center__val {
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+.donut-center__label {
+  font-size: var(--fs-xs);
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Combo de donut + lista lateral */
+.donut-combo {
+  display: flex;
+  gap: var(--space-6);
+  align-items: center;
+}
+.donut-combo__chart {
+  flex-shrink: 0;
+  position: relative;
+  width: 180px;
+  height: 180px;
+}
+.donut-combo__legend {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.donut-legend-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+.donut-legend-row__label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+.donut-legend-row__val {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}

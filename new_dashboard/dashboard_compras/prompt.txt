@@ -1,0 +1,113 @@
+RAYCY · Dashboard de Compras — INSTRUCCIONES PARA EL AGENTE
+
+Estás trabajando dentro del repositorio "Raycy Dashboard". Vas a colaborar
+con OTRO agente en paralelo. Tú haces UNA mitad del trabajo. Lee este
+prompt completo antes de tocar cualquier archivo.
+
+================================================================
+PASO 0 — Identifícate
+================================================================
+
+Cuando el usuario te lance, te dirá si eres "AGENTE A" (backend) o
+"AGENTE B" (frontend). Si no lo dice, pregunta antes de hacer nada.
+
+================================================================
+PASO 1 — Lectura obligatoria (en este orden)
+================================================================
+
+Antes de escribir una sola línea de código, lee estos tres archivos
+COMPLETOS, en este orden, sin saltarte nada:
+
+1. new_dashboard/dashboard_compras/MODELOS.md
+   → Contexto del negocio y de los modelos Django (Compra, Cotizacion,
+     Oportunidad, Supervisor, Proveedor, Nomenclatura, TarjetaPago).
+     Cómo se relacionan, qué significan los estados, qué reglas de
+     negocio aplican.
+
+2. new_dashboard/dashboard_compras/ESPECIFICACION_JSON.md
+   → Contrato del archivo dashboard_compras_data.json. Esta es la
+     frontera entre los dos agentes. Si necesitas cambiarlo, edítalo
+     primero AHÍ y avisa al otro agente.
+
+3. new_dashboard/dashboard_compras/PLAN_TRABAJO.md
+   → Lee la sección "AGENTE A" si eres backend, o la sección "AGENTE B"
+     si eres frontend. Lee también la sección "Convenciones comunes" y
+     "Coordinación entre A y B".
+
+================================================================
+PASO 2 — Trabajo a ejecutar
+================================================================
+
+SI ERES AGENTE A:
+  - Implementa new_dashboard/generar_dashboard_compras_json.py.
+  - Tu output es new_dashboard/dashboard_compras/dashboard_compras_data.json.
+  - Sigue al pie de la letra las tareas A.1 a A.7 de PLAN_TRABAJO.md.
+  - Tu JSON debe ajustarse exactamente a ESPECIFICACION_JSON.md.
+  - Antes de escribir el archivo, corre las 7 validaciones de la §11 de
+    la especificación. Si alguna falla, ABORTA y reporta.
+  - Reusa el patrón del script existente
+    new_dashboard/../generar_dashboard_json.py (DecimalEncoder,
+    ejecutar_query, get_fecha_rango). NO lo modifiques, sólo léelo como
+    referencia. La conexión a Postgres se obtiene con get_connection() de
+    new_dashboard/../azure_postgres_connection.py.
+  - Procesa los 4 meses (Enero, Febrero, Marzo, Abril 2026) y construye
+    además el período "acumulado" (2026-01-01 al 2026-04-30) como un
+    período más en datos_por_mes con key "acumulado".
+
+SI ERES AGENTE B:
+  - Implementa el dashboard estático en new_dashboard/dashboard_compras/.
+  - Crea index.html y todo lo de assets/ según el árbol descrito en
+    PLAN_TRABAJO.md sección AGENTE B.
+  - Trabaja contra el archivo SAMPLE
+    (new_dashboard/dashboard_compras/dashboard_compras_data.SAMPLE.json)
+    que TÚ MISMO debes generar al inicio para no quedarte bloqueado.
+    El SAMPLE debe respetar 100% la forma de ESPECIFICACION_JSON.md y
+    contener al menos: 1 mes con 1 OP (con 1 cotización y 2 compras),
+    1 cotización suelta con compras, 2 nomenclaturas con compras
+    internas, 2 supervisores con actividad, y un período "acumulado"
+    coherente.
+  - Sólo HTML5 + CSS3 + JavaScript ES2020 vanilla. CDN permitido sólo
+    para Inter (Google Fonts) y Chart.js v4 si te hace falta para alguna
+    gráfica (no es obligatorio en este dashboard). PROHIBIDO: cualquier
+    framework, bundler, preprocesador, Tailwind, Bootstrap, npm.
+  - Sin emojis. Iconos SVG inline (Lucide).
+  - Reusa el sistema de diseño del CLAUDE.md de new_dashboard/, sección
+    §4 (tokens de color, tipografía Inter, espacios, sombras). Misma
+    identidad visual de marca.
+  - Cuando Agente A entregue el JSON real, prueba con él y borra el
+    SAMPLE.
+
+================================================================
+PASO 3 — Reglas de oro
+================================================================
+
+- NO modifiques new_dashboard/models.py.
+- NO modifiques el dashboard original new_dashboard/index.html ni sus
+  assets. Este es un dashboard NUEVO en una carpeta separada.
+- NO inventes campos que no estén en ESPECIFICACION_JSON.md. Si algo
+  falta, edita la especificación primero, deja el cambio claro, y avisa
+  al otro agente.
+- NO uses emojis en código ni UI. En logs de Python, los símbolos
+  ✅ ❌ 🔄 son aceptables porque imitan el script existente.
+- Filtra SIEMPRE eliminado=FALSE en todas las queries.
+- El monto de cualquier compra es siempre core_compra.costo_total.
+- El mes lo determina core_compra.fecha_compra (NO fecha_cotizacion).
+- No mezcles el ciclo proveedor (facturado/pagado/concluido de la compra)
+  con el ciclo cliente (facturado/pagado/concluido de la oportunidad).
+
+================================================================
+PASO 4 — Definition of done
+================================================================
+
+Está en PLAN_TRABAJO.md, una para cada agente. No reportes el trabajo
+como hecho hasta que cumplas tu DoD completa.
+
+================================================================
+PASO 5 — Cuando termines
+================================================================
+
+Reporta de forma breve (≤ 6 líneas):
+- Qué archivos creaste o modificaste.
+- Qué validaciones / pruebas corriste y resultado.
+- Bloqueos o dudas pendientes para el otro agente.
+- Cualquier cambio que hayas hecho a ESPECIFICACION_JSON.md (si lo hubo).

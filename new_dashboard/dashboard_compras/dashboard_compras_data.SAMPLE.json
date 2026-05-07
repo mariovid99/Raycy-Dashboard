@@ -1,0 +1,961 @@
+{
+  "fecha_generacion": "2026-05-06T12:00:00.000",
+  "rango_global": {
+    "fecha_inicio": "2026-01-01",
+    "fecha_fin": "2026-04-30"
+  },
+  "meses_disponibles": [
+    { "key": "2026-01", "label": "Enero 2026",      "mes": 1,    "year": 2026 },
+    { "key": "2026-02", "label": "Febrero 2026",    "mes": 2,    "year": 2026 },
+    { "key": "2026-03", "label": "Marzo 2026",      "mes": 3,    "year": 2026 },
+    { "key": "2026-04", "label": "Abril 2026",      "mes": 4,    "year": 2026 },
+    { "key": "acumulado","label": "Acumulado 2026", "mes": null, "year": 2026 }
+  ],
+  "datos_por_mes": {
+    "2026-01": {
+      "mes": 1,
+      "year": 2026,
+      "mes_nombre": "Enero",
+      "periodo": "Enero 2026",
+      "fecha_inicio": "2026-01-01",
+      "fecha_fin": "2026-01-31",
+      "kpis_compras": {
+        "total_compras": 210000.00,
+        "num_compras": 9,
+        "monto_proyecto": 105000.00,
+        "num_proyecto": 5,
+        "monto_proyecto_materiales": 60000.00,
+        "monto_proyecto_mano_obra": 45000.00,
+        "monto_interno": 105000.00,
+        "num_interno": 4,
+        "monto_facturado": 123500.00,
+        "monto_pagado": 64500.00,
+        "monto_concluido": 78500.00,
+        "monto_pendiente_pago": 145500.00
+      },
+      "oportunidades": [
+        {
+          "oportunidad_id": 1,
+          "codigo_op": "OP-0042",
+          "categoria": "instalacion_electrica",
+          "categoria_display": "Instalacion Electrica",
+          "cliente": "ACME Industrias S.A. de C.V.",
+          "cliente_id": 10,
+          "supervisores": [
+            { "id": 1, "nombre": "Juan Perez" }
+          ],
+          "estado_oportunidad": {
+            "facturado": true,
+            "fecha_facturado": "2026-01-20",
+            "pagado": false,
+            "fecha_pagado": null,
+            "concluido": false,
+            "fecha_concluido": null,
+            "numero_factura": "F-10001",
+            "oc": "OC-5501"
+          },
+          "cotizaciones": [
+            {
+              "cotizacion_id": 101,
+              "numero_cotizacion": "COT-101",
+              "fecha_cotizacion": "2025-12-15",
+              "estado_cotizacion": "aceptada",
+              "precio_total": 280000.00,
+              "costo_cotizado": 200000.00,
+              "margen_estimado": 80000.00,
+              "supervisores": [
+                { "id": 1, "nombre": "Juan Perez" }
+              ],
+              "compras_mes": [
+                {
+                  "compra_id": 1001,
+                  "fecha_compra": "2026-01-08",
+                  "concepto": "Cable THW calibre 12",
+                  "descripcion": "200 m de cable para instalacion electrica",
+                  "tipo_compra_proyecto": "material",
+                  "es_mano_obra": false,
+                  "unidades": 200,
+                  "costo_total": 18500.00,
+                  "total_mano_obra": 0.00,
+                  "mano_obra_detalle": [],
+                  "proveedor": { "id": 5, "nombre": "Electrica Norte S.A." },
+                  "metodo_pago": {
+                    "id": 2,
+                    "tipo_metodo": "transferencia",
+                    "alias": "Transferencia BBVA",
+                    "etiqueta": "Transferencia BBVA"
+                  },
+                  "supervisor_proyecto": { "id": 1, "nombre": "Juan Perez" },
+                  "supervisor_responsable": { "id": 1, "nombre": "Juan Perez" },
+                  "facturado": true,
+                  "fecha_facturado": "2026-01-10",
+                  "pagado": true,
+                  "fecha_pagado": "2026-01-15",
+                  "concluido": true,
+                  "fecha_concluido": "2026-01-12",
+                  "numero_factura": "FP-3301"
+                },
+                {
+                  "compra_id": 1002,
+                  "fecha_compra": "2026-01-14",
+                  "concepto": "Mano de obra instalacion",
+                  "descripcion": "Labor de 3 electricistas por 5 dias",
+                  "tipo_compra_proyecto": "mano_obra",
+                  "es_mano_obra": true,
+                  "unidades": 1,
+                  "costo_total": 45000.00,
+                  "total_mano_obra": 45000.00,
+                  "mano_obra_detalle": [
+                    { "puesto": "Electricista", "horas": 40, "tarifa": 375.0 }
+                  ],
+                  "proveedor": { "id": 8, "nombre": "Servicios MRO" },
+                  "metodo_pago": {
+                    "id": 2,
+                    "tipo_metodo": "transferencia",
+                    "alias": "Transferencia BBVA",
+                    "etiqueta": "Transferencia BBVA"
+                  },
+                  "supervisor_proyecto": { "id": 1, "nombre": "Juan Perez" },
+                  "supervisor_responsable": { "id": 1, "nombre": "Juan Perez" },
+                  "facturado": true,
+                  "fecha_facturado": "2026-01-20",
+                  "pagado": false,
+                  "fecha_pagado": null,
+                  "concluido": false,
+                  "fecha_concluido": null,
+                  "numero_factura": "FP-3320"
+                }
+              ],
+              "num_compras_mes": 2,
+              "total_compras_mes": 63500.00,
+              "diferencia": 216500.00,
+              "porcentaje_avance_gasto": 22.68
+            }
+          ],
+          "venta_total": 280000.00,
+          "costo_cotizado_total": 200000.00,
+          "gasto_total_mes": 63500.00,
+          "diferencia": 216500.00,
+          "porcentaje_avance_gasto": 22.68,
+          "alerta_sobre_presupuesto": false
+        }
+      ],
+      "cotizaciones_con_compras_sin_oportunidad": [
+        {
+          "cotizacion_id": 202,
+          "numero_cotizacion": "COT-202",
+          "fecha_cotizacion": "2026-01-05",
+          "estado_cotizacion": "enviada",
+          "cliente": "Beta Industrial S.A.",
+          "cliente_id": 22,
+          "precio_total": 95000.00,
+          "costo_cotizado": 72000.00,
+          "margen_estimado": 23000.00,
+          "supervisores": [
+            { "id": 2, "nombre": "Marta Rios" }
+          ],
+          "compras_mes": [
+            {
+              "compra_id": 2001,
+              "fecha_compra": "2026-01-10",
+              "concepto": "Tuberia PVC 4 pulgadas",
+              "descripcion": "Tramos de tuberia para plomeria",
+              "tipo_compra_proyecto": "material",
+              "es_mano_obra": false,
+              "unidades": 40,
+              "costo_total": 28000.00,
+              "total_mano_obra": 0.00,
+              "mano_obra_detalle": [],
+              "proveedor": { "id": 11, "nombre": "Ferretera Central" },
+              "metodo_pago": {
+                "id": 1,
+                "tipo_metodo": "tarjeta",
+                "alias": "Tarjeta Azul ****4321",
+                "etiqueta": "Tarjeta Azul ****4321"
+              },
+              "supervisor_proyecto": { "id": 2, "nombre": "Marta Rios" },
+              "supervisor_responsable": { "id": 2, "nombre": "Marta Rios" },
+              "facturado": false,
+              "fecha_facturado": null,
+              "pagado": false,
+              "fecha_pagado": null,
+              "concluido": false,
+              "fecha_concluido": null,
+              "numero_factura": null
+            },
+            {
+              "compra_id": 2002,
+              "fecha_compra": "2026-01-18",
+              "concepto": "Conexiones y accesorios PVC",
+              "descripcion": "Codos, tees, reducciones",
+              "tipo_compra_proyecto": "material",
+              "es_mano_obra": false,
+              "unidades": 1,
+              "costo_total": 8500.00,
+              "total_mano_obra": 0.00,
+              "mano_obra_detalle": [],
+              "proveedor": { "id": 11, "nombre": "Ferretera Central" },
+              "metodo_pago": {
+                "id": 1,
+                "tipo_metodo": "tarjeta",
+                "alias": "Tarjeta Azul ****4321",
+                "etiqueta": "Tarjeta Azul ****4321"
+              },
+              "supervisor_proyecto": { "id": 2, "nombre": "Marta Rios" },
+              "supervisor_responsable": { "id": 2, "nombre": "Marta Rios" },
+              "facturado": false,
+              "fecha_facturado": null,
+              "pagado": false,
+              "fecha_pagado": null,
+              "concluido": false,
+              "fecha_concluido": null,
+              "numero_factura": null
+            }
+          ],
+          "num_compras_mes": 2,
+          "total_compras_mes": 36500.00,
+          "diferencia": 58500.00,
+          "porcentaje_avance_gasto": 38.42,
+          "alerta_sobre_presupuesto": false
+        }
+      ],
+      "compras_proyecto_pendientes_asignar": [
+        {
+          "compra_id": 3001,
+          "fecha_compra": "2026-01-22",
+          "concepto": "Tornilleria y sujetadores",
+          "descripcion": "Lote variado para trabajos en campo",
+          "tipo_compra_proyecto": "material",
+          "costo_total": 5000.00,
+          "proveedor": "Ferretera Central",
+          "metodo_pago": "Tarjeta Azul ****4321",
+          "supervisor": null,
+          "supervisor_responsable": "Juan Perez",
+          "facturado": false,
+          "pagado": false,
+          "concluido": false,
+          "numero_factura": null
+        }
+      ],
+      "gastos_internos_por_nomenclatura": [
+        {
+          "nomenclatura_id": 1,
+          "clave": "MUEBLES",
+          "descripcion": "Mobiliario y enseres de oficina",
+          "num_compras": 2,
+          "monto_total": 42000.00,
+          "compras": [
+            {
+              "compra_id": 4001,
+              "fecha_compra": "2026-01-07",
+              "concepto": "Sillas ejecutivas",
+              "descripcion": "Lote de 4 sillas ergonomicas",
+              "costo_total": 28000.00,
+              "proveedor": "Office Depot",
+              "metodo_pago": "Tarjeta Azul ****4321",
+              "supervisor_responsable": "Juan Perez",
+              "supervisor_responsable_id": 1,
+              "facturado": true,
+              "pagado": true,
+              "concluido": true,
+              "numero_factura": "FOD-7721"
+            },
+            {
+              "compra_id": 4002,
+              "fecha_compra": "2026-01-15",
+              "concepto": "Escritorio de trabajo",
+              "descripcion": "Escritorio de madera 180cm",
+              "costo_total": 14000.00,
+              "proveedor": "Muebles Modernos",
+              "metodo_pago": "Transferencia BBVA",
+              "supervisor_responsable": "Marta Rios",
+              "supervisor_responsable_id": 2,
+              "facturado": true,
+              "pagado": false,
+              "concluido": true,
+              "numero_factura": "MM-0055"
+            }
+          ]
+        },
+        {
+          "nomenclatura_id": 2,
+          "clave": "MTTO",
+          "descripcion": "Mantenimiento de instalaciones",
+          "num_compras": 2,
+          "monto_total": 63000.00,
+          "compras": [
+            {
+              "compra_id": 4003,
+              "fecha_compra": "2026-01-09",
+              "concepto": "Servicio de limpieza mensual",
+              "descripcion": "Contrato mensual empresa limpieza",
+              "costo_total": 18000.00,
+              "proveedor": "Limpiezas Pro",
+              "metodo_pago": "Transferencia BBVA",
+              "supervisor_responsable": "Juan Perez",
+              "supervisor_responsable_id": 1,
+              "facturado": true,
+              "pagado": true,
+              "concluido": true,
+              "numero_factura": "LP-1100"
+            },
+            {
+              "compra_id": 4004,
+              "fecha_compra": "2026-01-25",
+              "concepto": "Reparacion aire acondicionado",
+              "descripcion": "Revision y recarga de refrigerante",
+              "costo_total": 45000.00,
+              "proveedor": "Clima Total",
+              "metodo_pago": "Tarjeta Azul ****4321",
+              "supervisor_responsable": "Marta Rios",
+              "supervisor_responsable_id": 2,
+              "facturado": false,
+              "pagado": false,
+              "concluido": false,
+              "numero_factura": null
+            }
+          ]
+        }
+      ],
+      "supervisores": [
+        {
+          "supervisor_id": 1,
+          "nombre": "Juan Perez",
+          "email": "juan.perez@raycy.com",
+          "kpis": {
+            "monto_total_compras_proyecto": 63500.00,
+            "monto_proyecto_materiales": 18500.00,
+            "monto_proyecto_mano_obra": 45000.00,
+            "monto_gastos_internos_responsable": 46000.00,
+            "monto_total_atribuido": 109500.00,
+            "num_compras_proyecto": 2,
+            "num_gastos_internos_responsable": 2,
+            "num_oportunidades": 1,
+            "num_cotizaciones_con_compras_sin_op": 0,
+            "venta_total_oportunidades": 280000.00,
+            "venta_total_cotizaciones_sin_op": 0.00,
+            "monto_pendiente_pago_proveedores": 45000.00
+          },
+          "oportunidades": [
+            {
+              "oportunidad_id": 1,
+              "codigo_op": "OP-0042",
+              "categoria": "instalacion_electrica",
+              "categoria_display": "Instalacion Electrica",
+              "cliente": "ACME Industrias S.A. de C.V.",
+              "cliente_id": 10,
+              "supervisores": [
+                { "id": 1, "nombre": "Juan Perez" }
+              ],
+              "estado_oportunidad": {
+                "facturado": true,
+                "fecha_facturado": "2026-01-20",
+                "pagado": false,
+                "fecha_pagado": null,
+                "concluido": false,
+                "fecha_concluido": null,
+                "numero_factura": "F-10001",
+                "oc": "OC-5501"
+              },
+              "cotizaciones": [
+                {
+                  "cotizacion_id": 101,
+                  "numero_cotizacion": "COT-101",
+                  "fecha_cotizacion": "2025-12-15",
+                  "estado_cotizacion": "aceptada",
+                  "precio_total": 280000.00,
+                  "costo_cotizado": 200000.00,
+                  "margen_estimado": 80000.00,
+                  "supervisores": [ { "id": 1, "nombre": "Juan Perez" } ],
+                  "compras_mes": [
+                    {
+                      "compra_id": 1001,
+                      "fecha_compra": "2026-01-08",
+                      "concepto": "Cable THW calibre 12",
+                      "descripcion": "200 m de cable para instalacion electrica",
+                      "tipo_compra_proyecto": "material",
+                      "es_mano_obra": false,
+                      "unidades": 200,
+                      "costo_total": 18500.00,
+                      "total_mano_obra": 0.00,
+                      "mano_obra_detalle": [],
+                      "proveedor": { "id": 5, "nombre": "Electrica Norte S.A." },
+                      "metodo_pago": { "id": 2, "tipo_metodo": "transferencia", "alias": "Transferencia BBVA", "etiqueta": "Transferencia BBVA" },
+                      "supervisor_proyecto": { "id": 1, "nombre": "Juan Perez" },
+                      "supervisor_responsable": { "id": 1, "nombre": "Juan Perez" },
+                      "facturado": true, "fecha_facturado": "2026-01-10",
+                      "pagado": true, "fecha_pagado": "2026-01-15",
+                      "concluido": true, "fecha_concluido": "2026-01-12",
+                      "numero_factura": "FP-3301"
+                    },
+                    {
+                      "compra_id": 1002,
+                      "fecha_compra": "2026-01-14",
+                      "concepto": "Mano de obra instalacion",
+                      "descripcion": "Labor de 3 electricistas por 5 dias",
+                      "tipo_compra_proyecto": "mano_obra",
+                      "es_mano_obra": true,
+                      "unidades": 1,
+                      "costo_total": 45000.00,
+                      "total_mano_obra": 45000.00,
+                      "mano_obra_detalle": [ { "puesto": "Electricista", "horas": 40, "tarifa": 375.0 } ],
+                      "proveedor": { "id": 8, "nombre": "Servicios MRO" },
+                      "metodo_pago": { "id": 2, "tipo_metodo": "transferencia", "alias": "Transferencia BBVA", "etiqueta": "Transferencia BBVA" },
+                      "supervisor_proyecto": { "id": 1, "nombre": "Juan Perez" },
+                      "supervisor_responsable": { "id": 1, "nombre": "Juan Perez" },
+                      "facturado": true, "fecha_facturado": "2026-01-20",
+                      "pagado": false, "fecha_pagado": null,
+                      "concluido": false, "fecha_concluido": null,
+                      "numero_factura": "FP-3320"
+                    }
+                  ],
+                  "num_compras_mes": 2,
+                  "total_compras_mes": 63500.00,
+                  "diferencia": 216500.00,
+                  "porcentaje_avance_gasto": 22.68
+                }
+              ],
+              "venta_total": 280000.00,
+              "costo_cotizado_total": 200000.00,
+              "gasto_total_mes": 63500.00,
+              "diferencia": 216500.00,
+              "porcentaje_avance_gasto": 22.68,
+              "alerta_sobre_presupuesto": false
+            }
+          ],
+          "cotizaciones_con_compras_sin_oportunidad": [],
+          "gastos_internos": [
+            {
+              "compra_id": 4001,
+              "fecha_compra": "2026-01-07",
+              "concepto": "Sillas ejecutivas",
+              "descripcion": "Lote de 4 sillas ergonomicas",
+              "costo_total": 28000.00,
+              "proveedor": "Office Depot",
+              "metodo_pago": "Tarjeta Azul ****4321",
+              "supervisor_responsable": "Juan Perez",
+              "supervisor_responsable_id": 1,
+              "facturado": true,
+              "pagado": true,
+              "concluido": true,
+              "numero_factura": "FOD-7721"
+            },
+            {
+              "compra_id": 4003,
+              "fecha_compra": "2026-01-09",
+              "concepto": "Servicio de limpieza mensual",
+              "descripcion": "Contrato mensual empresa limpieza",
+              "costo_total": 18000.00,
+              "proveedor": "Limpiezas Pro",
+              "metodo_pago": "Transferencia BBVA",
+              "supervisor_responsable": "Juan Perez",
+              "supervisor_responsable_id": 1,
+              "facturado": true,
+              "pagado": true,
+              "concluido": true,
+              "numero_factura": "LP-1100"
+            }
+          ]
+        },
+        {
+          "supervisor_id": 2,
+          "nombre": "Marta Rios",
+          "email": "marta.rios@raycy.com",
+          "kpis": {
+            "monto_total_compras_proyecto": 36500.00,
+            "monto_proyecto_materiales": 36500.00,
+            "monto_proyecto_mano_obra": 0.00,
+            "monto_gastos_internos_responsable": 59000.00,
+            "monto_total_atribuido": 95500.00,
+            "num_compras_proyecto": 2,
+            "num_gastos_internos_responsable": 2,
+            "num_oportunidades": 0,
+            "num_cotizaciones_con_compras_sin_op": 1,
+            "venta_total_oportunidades": 0.00,
+            "venta_total_cotizaciones_sin_op": 95000.00,
+            "monto_pendiente_pago_proveedores": 95000.00
+          },
+          "oportunidades": [],
+          "cotizaciones_con_compras_sin_oportunidad": [
+            {
+              "cotizacion_id": 202,
+              "numero_cotizacion": "COT-202",
+              "fecha_cotizacion": "2026-01-05",
+              "estado_cotizacion": "enviada",
+              "cliente": "Beta Industrial S.A.",
+              "cliente_id": 22,
+              "precio_total": 95000.00,
+              "costo_cotizado": 72000.00,
+              "margen_estimado": 23000.00,
+              "supervisores": [ { "id": 2, "nombre": "Marta Rios" } ],
+              "compras_mes": [
+                {
+                  "compra_id": 2001,
+                  "fecha_compra": "2026-01-10",
+                  "concepto": "Tuberia PVC 4 pulgadas",
+                  "descripcion": "Tramos de tuberia para plomeria",
+                  "tipo_compra_proyecto": "material",
+                  "es_mano_obra": false,
+                  "unidades": 40,
+                  "costo_total": 28000.00,
+                  "total_mano_obra": 0.00,
+                  "mano_obra_detalle": [],
+                  "proveedor": { "id": 11, "nombre": "Ferretera Central" },
+                  "metodo_pago": { "id": 1, "tipo_metodo": "tarjeta", "alias": "Tarjeta Azul ****4321", "etiqueta": "Tarjeta Azul ****4321" },
+                  "supervisor_proyecto": { "id": 2, "nombre": "Marta Rios" },
+                  "supervisor_responsable": { "id": 2, "nombre": "Marta Rios" },
+                  "facturado": false, "fecha_facturado": null,
+                  "pagado": false, "fecha_pagado": null,
+                  "concluido": false, "fecha_concluido": null,
+                  "numero_factura": null
+                },
+                {
+                  "compra_id": 2002,
+                  "fecha_compra": "2026-01-18",
+                  "concepto": "Conexiones y accesorios PVC",
+                  "descripcion": "Codos, tees, reducciones",
+                  "tipo_compra_proyecto": "material",
+                  "es_mano_obra": false,
+                  "unidades": 1,
+                  "costo_total": 8500.00,
+                  "total_mano_obra": 0.00,
+                  "mano_obra_detalle": [],
+                  "proveedor": { "id": 11, "nombre": "Ferretera Central" },
+                  "metodo_pago": { "id": 1, "tipo_metodo": "tarjeta", "alias": "Tarjeta Azul ****4321", "etiqueta": "Tarjeta Azul ****4321" },
+                  "supervisor_proyecto": { "id": 2, "nombre": "Marta Rios" },
+                  "supervisor_responsable": { "id": 2, "nombre": "Marta Rios" },
+                  "facturado": false, "fecha_facturado": null,
+                  "pagado": false, "fecha_pagado": null,
+                  "concluido": false, "fecha_concluido": null,
+                  "numero_factura": null
+                }
+              ],
+              "num_compras_mes": 2,
+              "total_compras_mes": 36500.00,
+              "diferencia": 58500.00,
+              "porcentaje_avance_gasto": 38.42,
+              "alerta_sobre_presupuesto": false
+            }
+          ],
+          "gastos_internos": [
+            {
+              "compra_id": 4002,
+              "fecha_compra": "2026-01-15",
+              "concepto": "Escritorio de trabajo",
+              "descripcion": "Escritorio de madera 180cm",
+              "costo_total": 14000.00,
+              "proveedor": "Muebles Modernos",
+              "metodo_pago": "Transferencia BBVA",
+              "supervisor_responsable": "Marta Rios",
+              "supervisor_responsable_id": 2,
+              "facturado": true,
+              "pagado": false,
+              "concluido": true,
+              "numero_factura": "MM-0055"
+            },
+            {
+              "compra_id": 4004,
+              "fecha_compra": "2026-01-25",
+              "concepto": "Reparacion aire acondicionado",
+              "descripcion": "Revision y recarga de refrigerante",
+              "costo_total": 45000.00,
+              "proveedor": "Clima Total",
+              "metodo_pago": "Tarjeta Azul ****4321",
+              "supervisor_responsable": "Marta Rios",
+              "supervisor_responsable_id": 2,
+              "facturado": false,
+              "pagado": false,
+              "concluido": false,
+              "numero_factura": null
+            }
+          ]
+        }
+      ]
+    },
+    "2026-02": {
+      "mes": 2,
+      "year": 2026,
+      "mes_nombre": "Febrero",
+      "periodo": "Febrero 2026",
+      "fecha_inicio": "2026-02-01",
+      "fecha_fin": "2026-02-28",
+      "kpis_compras": {
+        "total_compras": 0.00,
+        "num_compras": 0,
+        "monto_proyecto": 0.00,
+        "num_proyecto": 0,
+        "monto_proyecto_materiales": 0.00,
+        "monto_proyecto_mano_obra": 0.00,
+        "monto_interno": 0.00,
+        "num_interno": 0,
+        "monto_facturado": 0.00,
+        "monto_pagado": 0.00,
+        "monto_concluido": 0.00,
+        "monto_pendiente_pago": 0.00
+      },
+      "oportunidades": [],
+      "cotizaciones_con_compras_sin_oportunidad": [],
+      "compras_proyecto_pendientes_asignar": [],
+      "gastos_internos_por_nomenclatura": [],
+      "supervisores": []
+    },
+    "2026-03": {
+      "mes": 3,
+      "year": 2026,
+      "mes_nombre": "Marzo",
+      "periodo": "Marzo 2026",
+      "fecha_inicio": "2026-03-01",
+      "fecha_fin": "2026-03-31",
+      "kpis_compras": {
+        "total_compras": 0.00,
+        "num_compras": 0,
+        "monto_proyecto": 0.00,
+        "num_proyecto": 0,
+        "monto_proyecto_materiales": 0.00,
+        "monto_proyecto_mano_obra": 0.00,
+        "monto_interno": 0.00,
+        "num_interno": 0,
+        "monto_facturado": 0.00,
+        "monto_pagado": 0.00,
+        "monto_concluido": 0.00,
+        "monto_pendiente_pago": 0.00
+      },
+      "oportunidades": [],
+      "cotizaciones_con_compras_sin_oportunidad": [],
+      "compras_proyecto_pendientes_asignar": [],
+      "gastos_internos_por_nomenclatura": [],
+      "supervisores": []
+    },
+    "2026-04": {
+      "mes": 4,
+      "year": 2026,
+      "mes_nombre": "Abril",
+      "periodo": "Abril 2026",
+      "fecha_inicio": "2026-04-01",
+      "fecha_fin": "2026-04-30",
+      "kpis_compras": {
+        "total_compras": 0.00,
+        "num_compras": 0,
+        "monto_proyecto": 0.00,
+        "num_proyecto": 0,
+        "monto_proyecto_materiales": 0.00,
+        "monto_proyecto_mano_obra": 0.00,
+        "monto_interno": 0.00,
+        "num_interno": 0,
+        "monto_facturado": 0.00,
+        "monto_pagado": 0.00,
+        "monto_concluido": 0.00,
+        "monto_pendiente_pago": 0.00
+      },
+      "oportunidades": [],
+      "cotizaciones_con_compras_sin_oportunidad": [],
+      "compras_proyecto_pendientes_asignar": [],
+      "gastos_internos_por_nomenclatura": [],
+      "supervisores": []
+    },
+    "acumulado": {
+      "mes": null,
+      "year": 2026,
+      "mes_nombre": "Acumulado",
+      "periodo": "Acumulado 2026",
+      "fecha_inicio": "2026-01-01",
+      "fecha_fin": "2026-04-30",
+      "kpis_compras": {
+        "total_compras": 210000.00,
+        "num_compras": 9,
+        "monto_proyecto": 105000.00,
+        "num_proyecto": 5,
+        "monto_proyecto_materiales": 60000.00,
+        "monto_proyecto_mano_obra": 45000.00,
+        "monto_interno": 105000.00,
+        "num_interno": 4,
+        "monto_facturado": 123500.00,
+        "monto_pagado": 64500.00,
+        "monto_concluido": 78500.00,
+        "monto_pendiente_pago": 145500.00
+      },
+      "oportunidades": [
+        {
+          "oportunidad_id": 1,
+          "codigo_op": "OP-0042",
+          "categoria": "instalacion_electrica",
+          "categoria_display": "Instalacion Electrica",
+          "cliente": "ACME Industrias S.A. de C.V.",
+          "cliente_id": 10,
+          "supervisores": [ { "id": 1, "nombre": "Juan Perez" } ],
+          "estado_oportunidad": {
+            "facturado": true,
+            "fecha_facturado": "2026-01-20",
+            "pagado": false,
+            "fecha_pagado": null,
+            "concluido": false,
+            "fecha_concluido": null,
+            "numero_factura": "F-10001",
+            "oc": "OC-5501"
+          },
+          "cotizaciones": [
+            {
+              "cotizacion_id": 101,
+              "numero_cotizacion": "COT-101",
+              "fecha_cotizacion": "2025-12-15",
+              "estado_cotizacion": "aceptada",
+              "precio_total": 280000.00,
+              "costo_cotizado": 200000.00,
+              "margen_estimado": 80000.00,
+              "supervisores": [ { "id": 1, "nombre": "Juan Perez" } ],
+              "compras_mes": [
+                {
+                  "compra_id": 1001,
+                  "fecha_compra": "2026-01-08",
+                  "concepto": "Cable THW calibre 12",
+                  "descripcion": "200 m de cable para instalacion electrica",
+                  "tipo_compra_proyecto": "material",
+                  "es_mano_obra": false,
+                  "unidades": 200,
+                  "costo_total": 18500.00,
+                  "total_mano_obra": 0.00,
+                  "mano_obra_detalle": [],
+                  "proveedor": { "id": 5, "nombre": "Electrica Norte S.A." },
+                  "metodo_pago": { "id": 2, "tipo_metodo": "transferencia", "alias": "Transferencia BBVA", "etiqueta": "Transferencia BBVA" },
+                  "supervisor_proyecto": { "id": 1, "nombre": "Juan Perez" },
+                  "supervisor_responsable": { "id": 1, "nombre": "Juan Perez" },
+                  "facturado": true, "fecha_facturado": "2026-01-10",
+                  "pagado": true, "fecha_pagado": "2026-01-15",
+                  "concluido": true, "fecha_concluido": "2026-01-12",
+                  "numero_factura": "FP-3301"
+                },
+                {
+                  "compra_id": 1002,
+                  "fecha_compra": "2026-01-14",
+                  "concepto": "Mano de obra instalacion",
+                  "descripcion": "Labor de 3 electricistas por 5 dias",
+                  "tipo_compra_proyecto": "mano_obra",
+                  "es_mano_obra": true,
+                  "unidades": 1,
+                  "costo_total": 45000.00,
+                  "total_mano_obra": 45000.00,
+                  "mano_obra_detalle": [ { "puesto": "Electricista", "horas": 40, "tarifa": 375.0 } ],
+                  "proveedor": { "id": 8, "nombre": "Servicios MRO" },
+                  "metodo_pago": { "id": 2, "tipo_metodo": "transferencia", "alias": "Transferencia BBVA", "etiqueta": "Transferencia BBVA" },
+                  "supervisor_proyecto": { "id": 1, "nombre": "Juan Perez" },
+                  "supervisor_responsable": { "id": 1, "nombre": "Juan Perez" },
+                  "facturado": true, "fecha_facturado": "2026-01-20",
+                  "pagado": false, "fecha_pagado": null,
+                  "concluido": false, "fecha_concluido": null,
+                  "numero_factura": "FP-3320"
+                }
+              ],
+              "num_compras_mes": 2,
+              "total_compras_mes": 63500.00,
+              "diferencia": 216500.00,
+              "porcentaje_avance_gasto": 22.68
+            }
+          ],
+          "venta_total": 280000.00,
+          "costo_cotizado_total": 200000.00,
+          "gasto_total_mes": 63500.00,
+          "diferencia": 216500.00,
+          "porcentaje_avance_gasto": 22.68,
+          "alerta_sobre_presupuesto": false
+        }
+      ],
+      "cotizaciones_con_compras_sin_oportunidad": [
+        {
+          "cotizacion_id": 202,
+          "numero_cotizacion": "COT-202",
+          "fecha_cotizacion": "2026-01-05",
+          "estado_cotizacion": "enviada",
+          "cliente": "Beta Industrial S.A.",
+          "cliente_id": 22,
+          "precio_total": 95000.00,
+          "costo_cotizado": 72000.00,
+          "margen_estimado": 23000.00,
+          "supervisores": [ { "id": 2, "nombre": "Marta Rios" } ],
+          "compras_mes": [
+            {
+              "compra_id": 2001,
+              "fecha_compra": "2026-01-10",
+              "concepto": "Tuberia PVC 4 pulgadas",
+              "descripcion": "Tramos de tuberia para plomeria",
+              "tipo_compra_proyecto": "material",
+              "es_mano_obra": false,
+              "unidades": 40,
+              "costo_total": 28000.00,
+              "total_mano_obra": 0.00,
+              "mano_obra_detalle": [],
+              "proveedor": { "id": 11, "nombre": "Ferretera Central" },
+              "metodo_pago": { "id": 1, "tipo_metodo": "tarjeta", "alias": "Tarjeta Azul ****4321", "etiqueta": "Tarjeta Azul ****4321" },
+              "supervisor_proyecto": { "id": 2, "nombre": "Marta Rios" },
+              "supervisor_responsable": { "id": 2, "nombre": "Marta Rios" },
+              "facturado": false, "fecha_facturado": null,
+              "pagado": false, "fecha_pagado": null,
+              "concluido": false, "fecha_concluido": null,
+              "numero_factura": null
+            },
+            {
+              "compra_id": 2002,
+              "fecha_compra": "2026-01-18",
+              "concepto": "Conexiones y accesorios PVC",
+              "descripcion": "Codos, tees, reducciones",
+              "tipo_compra_proyecto": "material",
+              "es_mano_obra": false,
+              "unidades": 1,
+              "costo_total": 8500.00,
+              "total_mano_obra": 0.00,
+              "mano_obra_detalle": [],
+              "proveedor": { "id": 11, "nombre": "Ferretera Central" },
+              "metodo_pago": { "id": 1, "tipo_metodo": "tarjeta", "alias": "Tarjeta Azul ****4321", "etiqueta": "Tarjeta Azul ****4321" },
+              "supervisor_proyecto": { "id": 2, "nombre": "Marta Rios" },
+              "supervisor_responsable": { "id": 2, "nombre": "Marta Rios" },
+              "facturado": false, "fecha_facturado": null,
+              "pagado": false, "fecha_pagado": null,
+              "concluido": false, "fecha_concluido": null,
+              "numero_factura": null
+            }
+          ],
+          "num_compras_mes": 2,
+          "total_compras_mes": 36500.00,
+          "diferencia": 58500.00,
+          "porcentaje_avance_gasto": 38.42,
+          "alerta_sobre_presupuesto": false
+        }
+      ],
+      "compras_proyecto_pendientes_asignar": [
+        {
+          "compra_id": 3001,
+          "fecha_compra": "2026-01-22",
+          "concepto": "Tornilleria y sujetadores",
+          "descripcion": "Lote variado para trabajos en campo",
+          "tipo_compra_proyecto": "material",
+          "costo_total": 5000.00,
+          "proveedor": "Ferretera Central",
+          "metodo_pago": "Tarjeta Azul ****4321",
+          "supervisor": null,
+          "supervisor_responsable": "Juan Perez",
+          "facturado": false,
+          "pagado": false,
+          "concluido": false,
+          "numero_factura": null
+        }
+      ],
+      "gastos_internos_por_nomenclatura": [
+        {
+          "nomenclatura_id": 1,
+          "clave": "MUEBLES",
+          "descripcion": "Mobiliario y enseres de oficina",
+          "num_compras": 2,
+          "monto_total": 42000.00,
+          "compras": [
+            {
+              "compra_id": 4001,
+              "fecha_compra": "2026-01-07",
+              "concepto": "Sillas ejecutivas",
+              "descripcion": "Lote de 4 sillas ergonomicas",
+              "costo_total": 28000.00,
+              "proveedor": "Office Depot",
+              "metodo_pago": "Tarjeta Azul ****4321",
+              "supervisor_responsable": "Juan Perez",
+              "supervisor_responsable_id": 1,
+              "facturado": true, "pagado": true, "concluido": true,
+              "numero_factura": "FOD-7721"
+            },
+            {
+              "compra_id": 4002,
+              "fecha_compra": "2026-01-15",
+              "concepto": "Escritorio de trabajo",
+              "descripcion": "Escritorio de madera 180cm",
+              "costo_total": 14000.00,
+              "proveedor": "Muebles Modernos",
+              "metodo_pago": "Transferencia BBVA",
+              "supervisor_responsable": "Marta Rios",
+              "supervisor_responsable_id": 2,
+              "facturado": true, "pagado": false, "concluido": true,
+              "numero_factura": "MM-0055"
+            }
+          ]
+        },
+        {
+          "nomenclatura_id": 2,
+          "clave": "MTTO",
+          "descripcion": "Mantenimiento de instalaciones",
+          "num_compras": 2,
+          "monto_total": 63000.00,
+          "compras": [
+            {
+              "compra_id": 4003,
+              "fecha_compra": "2026-01-09",
+              "concepto": "Servicio de limpieza mensual",
+              "descripcion": "Contrato mensual empresa limpieza",
+              "costo_total": 18000.00,
+              "proveedor": "Limpiezas Pro",
+              "metodo_pago": "Transferencia BBVA",
+              "supervisor_responsable": "Juan Perez",
+              "supervisor_responsable_id": 1,
+              "facturado": true, "pagado": true, "concluido": true,
+              "numero_factura": "LP-1100"
+            },
+            {
+              "compra_id": 4004,
+              "fecha_compra": "2026-01-25",
+              "concepto": "Reparacion aire acondicionado",
+              "descripcion": "Revision y recarga de refrigerante",
+              "costo_total": 45000.00,
+              "proveedor": "Clima Total",
+              "metodo_pago": "Tarjeta Azul ****4321",
+              "supervisor_responsable": "Marta Rios",
+              "supervisor_responsable_id": 2,
+              "facturado": false, "pagado": false, "concluido": false,
+              "numero_factura": null
+            }
+          ]
+        }
+      ],
+      "supervisores": [
+        {
+          "supervisor_id": 1,
+          "nombre": "Juan Perez",
+          "email": "juan.perez@raycy.com",
+          "kpis": {
+            "monto_total_compras_proyecto": 63500.00,
+            "monto_proyecto_materiales": 18500.00,
+            "monto_proyecto_mano_obra": 45000.00,
+            "monto_gastos_internos_responsable": 46000.00,
+            "monto_total_atribuido": 109500.00,
+            "num_compras_proyecto": 2,
+            "num_gastos_internos_responsable": 2,
+            "num_oportunidades": 1,
+            "num_cotizaciones_con_compras_sin_op": 0,
+            "venta_total_oportunidades": 280000.00,
+            "venta_total_cotizaciones_sin_op": 0.00,
+            "monto_pendiente_pago_proveedores": 45000.00
+          },
+          "oportunidades": [],
+          "cotizaciones_con_compras_sin_oportunidad": [],
+          "gastos_internos": []
+        },
+        {
+          "supervisor_id": 2,
+          "nombre": "Marta Rios",
+          "email": "marta.rios@raycy.com",
+          "kpis": {
+            "monto_total_compras_proyecto": 36500.00,
+            "monto_proyecto_materiales": 36500.00,
+            "monto_proyecto_mano_obra": 0.00,
+            "monto_gastos_internos_responsable": 59000.00,
+            "monto_total_atribuido": 95500.00,
+            "num_compras_proyecto": 2,
+            "num_gastos_internos_responsable": 2,
+            "num_oportunidades": 0,
+            "num_cotizaciones_con_compras_sin_op": 1,
+            "venta_total_oportunidades": 0.00,
+            "venta_total_cotizaciones_sin_op": 95000.00,
+            "monto_pendiente_pago_proveedores": 95000.00
+          },
+          "oportunidades": [],
+          "cotizaciones_con_compras_sin_oportunidad": [],
+          "gastos_internos": []
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,281 @@
+/* Layout global — Raycy Dashboard */
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Shell principal (topbar + sidebar + content) */
+.shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--bg-subtle);
+}
+
+/* Topbar */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--topbar-height);
+  z-index: 100;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-6);
+  gap: var(--space-4);
+  box-shadow: var(--shadow-1);
+}
+
+.topbar__brand {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--blue-500);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  text-decoration: none;
+}
+.topbar__brand:hover { text-decoration: none; }
+
+.topbar__divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+.topbar__center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.topbar__right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+
+.topbar__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--blue-100);
+  color: var(--blue-700);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: var(--topbar-height);
+  bottom: 0;
+  width: var(--sidebar-collapsed);
+  z-index: 90;
+  background: var(--surface);
+  border-right: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  transition: width var(--dur-default) var(--ease);
+  overflow: hidden;
+  box-shadow: var(--shadow-1);
+}
+
+.sidebar.is-expanded {
+  width: var(--sidebar-expanded);
+}
+
+.sidebar__nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-2);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sidebar__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  height: 44px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background var(--dur-micro) var(--ease), color var(--dur-micro) var(--ease);
+  position: relative;
+  text-decoration: none;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+
+.sidebar__item:hover {
+  background: var(--bg-muted);
+  color: var(--text-primary);
+}
+
+.sidebar__item.is-active {
+  background: var(--blue-50);
+  color: var(--blue-600);
+}
+
+.sidebar__item.is-active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%) scaleY(0.6);
+  height: 24px;
+  width: 3px;
+  background: var(--blue-500);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  animation: barEnter var(--dur-default) var(--ease) forwards;
+}
+
+@keyframes barEnter {
+  from { transform: translateY(-50%) scaleY(0.6); }
+  to   { transform: translateY(-50%) scaleY(1); }
+}
+
+.sidebar__icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar__label {
+  opacity: 0;
+  transition: opacity var(--dur-default) var(--ease);
+  pointer-events: none;
+}
+
+.sidebar.is-expanded .sidebar__label {
+  opacity: 1;
+}
+
+.sidebar__toggle {
+  padding: var(--space-3) var(--space-2);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: center;
+}
+
+.sidebar__toggle-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: background var(--dur-micro) var(--ease), color var(--dur-micro) var(--ease);
+  border: none;
+  background: none;
+}
+
+.sidebar__toggle-btn:hover {
+  background: var(--bg-muted);
+  color: var(--text-primary);
+}
+
+/* Contenido principal */
+.content-area {
+  margin-left: var(--sidebar-collapsed);
+  margin-top: var(--topbar-height);
+  min-height: calc(100vh - var(--topbar-height));
+  transition: margin-left var(--dur-default) var(--ease);
+  background: var(--bg-subtle);
+}
+
+.content-area.sidebar-expanded {
+  margin-left: var(--sidebar-expanded);
+}
+
+.content-inner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--space-6) var(--content-padding) var(--space-12);
+}
+
+/* Sección dentro de una vista */
+.view-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-6);
+}
+
+.view-title {
+  font-size: var(--fs-h1);
+  line-height: var(--lh-h1);
+  font-weight: var(--fw-h1);
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.section-title {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+  font-weight: var(--fw-h2);
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin-bottom: var(--space-5);
+}
+
+/* Grid helpers */
+.grid {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.grid-5 { grid-template-columns: repeat(5, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-12 { grid-template-columns: repeat(12, 1fr); }
+
+.col-span-12 { grid-column: span 12; }
+.col-span-8  { grid-column: span 8; }
+.col-span-6  { grid-column: span 6; }
+.col-span-5  { grid-column: span 5; }
+.col-span-4  { grid-column: span 4; }
+.col-span-3  { grid-column: span 3; }
+
+/* Sección separator */
+.section-gap {
+  margin-bottom: var(--space-10);
+}
+
+/* Responsive */
+@media (max-width: 1280px) {
+  .grid-5 { grid-template-columns: repeat(3, 1fr); }
+  .col-span-8 { grid-column: span 12; }
+  .col-span-4 { grid-column: span 12; }
+  .col-span-6 { grid-column: span 12; }
+}

@@ -1,0 +1,1483 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard KPIs</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #f5f7fa;
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      header {
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        margin-bottom: 30px;
+        animation: fadeInDown 0.8s ease;
+      }
+
+      h1 {
+        font-size: 2rem;
+        color: #1f2937;
+        margin-bottom: 5px;
+      }
+
+      .subtitle {
+        font-size: 0.95rem;
+        color: #6b7280;
+      }
+
+      .tabs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        animation: fadeInUp 0.8s ease;
+        background: white;
+        padding: 8px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+      }
+
+      .tab {
+        background: transparent;
+        padding: 12px 24px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-weight: 600;
+        color: #6b7280;
+        font-size: 0.9rem;
+        border: none;
+      }
+
+      .tab:hover {
+        background: #f3f4f6;
+        color: #1f2937;
+      }
+
+      .tab.active {
+        background: #2563eb;
+        color: white;
+        box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+        animation: fadeIn 0.5s ease;
+      }
+
+      .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+
+      .card {
+        background: white;
+        padding: 24px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        transition: all 0.2s ease;
+        animation: fadeInUp 0.6s ease;
+        border: 1px solid #e5e7eb;
+      }
+
+      .card:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+        transform: translateY(-2px);
+      }
+
+      .card-title {
+        font-size: 0.85rem;
+        color: #6b7280;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+
+      .card-value {
+        font-size: 1.7rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 4px;
+      }
+
+      .card-subtitle {
+        font-size: 0.8rem;
+        color: #9ca3af;
+      }
+
+      .shari-input {
+        width: 100%;
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #7c3aed;
+        border: 2px dashed #c4b5fd;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #f5f3ff;
+        text-align: center;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+
+      .shari-input:focus {
+        border-color: #7c3aed;
+        background: #ede9fe;
+      }
+
+      .shari-input::placeholder {
+        color: #a78bfa;
+        font-weight: 400;
+        font-size: 0.9rem;
+      }
+
+      .card.positive .card-value {
+        color: #059669;
+      }
+
+      .card.negative .card-value {
+        color: #dc2626;
+      }
+
+      .card.info .card-value {
+        color: #2563eb;
+      }
+
+      .card.warning .card-value {
+        color: #d97706;
+      }
+
+      .table-container {
+        background: white;
+        border-radius: 10px;
+        padding: 24px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        overflow-x: auto;
+        animation: fadeInUp 0.7s ease;
+        border: 1px solid #e5e7eb;
+        margin-bottom: 20px;
+      }
+
+      .table-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .table-header h2 {
+        color: #1f2937;
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+
+      .view-toggle {
+        display: flex;
+        gap: 8px;
+      }
+
+      .toggle-btn {
+        padding: 8px 16px;
+        border: 1px solid #d1d5db;
+        background: white;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: #6b7280;
+        transition: all 0.2s;
+      }
+
+      .toggle-btn:hover {
+        background: #f3f4f6;
+      }
+
+      .toggle-btn.active {
+        background: #2563eb;
+        color: white;
+        border-color: #2563eb;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th {
+        background: #f9fafb;
+        color: #374151;
+        padding: 12px 16px;
+        text-align: left;
+        font-weight: 600;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-bottom: 2px solid #e5e7eb;
+      }
+
+      td {
+        padding: 14px 16px;
+        border-bottom: 1px solid #f3f4f6;
+        color: #4b5563;
+        font-size: 0.9rem;
+      }
+
+      tr:hover {
+        background: #fafbfc;
+      }
+
+      tr.total-row {
+        background: #f9fafb;
+        font-weight: 700;
+        border-top: 2px solid #e5e7eb;
+      }
+
+      tr.total-row td {
+        color: #1f2937;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+
+      .badge.success {
+        background: #d1fae5;
+        color: #065f46;
+      }
+
+      .badge.danger {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+
+      .badge.warning {
+        background: #fef3c7;
+        color: #92400e;
+      }
+
+      .badge.info {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+
+      .chart-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+
+      .chart-card {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e5e7eb;
+      }
+
+      .chart-card h3 {
+        font-size: 1rem;
+        color: #1f2937;
+        margin-bottom: 15px;
+        font-weight: 600;
+      }
+
+      .loading {
+        text-align: center;
+        padding: 50px;
+        color: #6b7280;
+        font-size: 1.2rem;
+      }
+
+      .spinner {
+        border: 4px solid #e5e7eb;
+        border-top: 4px solid #2563eb;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        margin: 20px auto;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 6px;
+        background: #e5e7eb;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-top: 8px;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: #2563eb;
+        transition: width 1s ease;
+        border-radius: 10px;
+      }
+
+      .percent-cell {
+        font-weight: 600;
+      }
+
+      .percent-good {
+        color: #059669;
+      }
+
+      .percent-warning {
+        color: #d97706;
+      }
+
+      .percent-bad {
+        color: #dc2626;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .month-filter {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        background: white;
+        padding: 10px 14px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        align-items: center;
+      }
+
+      .month-filter-label {
+        font-weight: 600;
+        color: #374151;
+        font-size: 0.9rem;
+        margin-right: 8px;
+      }
+
+      .month-btn {
+        padding: 8px 18px;
+        border: 1px solid #d1d5db;
+        background: white;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: #6b7280;
+        transition: all 0.2s;
+      }
+
+      .month-btn:hover {
+        background: #f3f4f6;
+        color: #1f2937;
+      }
+
+      .month-btn.active {
+        background: #2563eb;
+        color: white;
+        border-color: #2563eb;
+      }
+
+      @media (max-width: 768px) {
+        .cards-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .chart-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .tabs {
+          flex-direction: column;
+        }
+
+        .table-container {
+          padding: 15px;
+        }
+
+        th,
+        td {
+          padding: 10px 8px;
+          font-size: 0.8rem;
+        }
+
+        .month-filter {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Dashboard de KPIs</h1>
+        <p class="subtitle" id="header-subtitle">
+          Análisis de Cotizaciones y Compras
+        </p>
+      </header>
+
+      <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <p>Cargando datos...</p>
+      </div>
+
+      <div id="content" style="display: none">
+        <!-- Pestañas -->
+        <div class="tabs">
+          <button class="tab active" onclick="showTab('resumen')">
+            Resumen General
+          </button>
+          <button class="tab" onclick="showTab('supervisores')">
+            Por Supervisor
+          </button>
+          <button class="tab" onclick="showTab('cotizaciones')">
+            Cotizaciones
+          </button>
+          <button class="tab" onclick="showTab('oportunidades')">
+            Oportunidades
+          </button>
+        </div>
+
+        <!-- Filtro de Mes -->
+        <div class="month-filter" id="month-filter">
+          <span class="month-filter-label">Período:</span>
+        </div>
+
+        <!-- Tab: Resumen General -->
+        <div id="tab-resumen" class="tab-content active">
+          <div class="cards-grid" id="resumen-cards"></div>
+
+          <!-- Gráficas -->
+          <div class="chart-grid">
+            <div class="chart-card">
+              <h3>Ventas vs Gastos por Supervisor</h3>
+              <canvas id="chartVentasGastos" style="height: 300px"></canvas>
+            </div>
+            <div class="chart-card">
+              <h3>Distribución de Cotizaciones</h3>
+              <canvas id="chartCotizaciones"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: Por Supervisor -->
+        <div id="tab-supervisores" class="tab-content">
+          <div class="table-container">
+            <div class="table-header">
+              <h2 id="titulo-supervisores">
+                Cotizaciones Enviadas por Supervisor
+              </h2>
+            </div>
+            <table id="tabla-supervisores">
+              <thead>
+                <tr>
+                  <th>Supervisor</th>
+                  <th>Cotizaciones</th>
+                  <th>Ventas</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab: Cotizaciones -->
+        <div id="tab-cotizaciones" class="tab-content">
+          <!-- Vista por Cotización -->
+          <div id="cotizaciones-detalle" class="table-container">
+            <div class="table-header">
+              <h2 id="titulo-cotizaciones-detalle">Cotizaciones con Gastos</h2>
+              <div class="view-toggle">
+                <button
+                  class="toggle-btn active"
+                  onclick="toggleCotizacionesView('detalle')"
+                >
+                  Por Cotización
+                </button>
+                <button
+                  class="toggle-btn"
+                  onclick="toggleCotizacionesView('supervisor')"
+                >
+                  Por Supervisor
+                </button>
+              </div>
+            </div>
+            <table id="tabla-cotizaciones">
+              <thead>
+                <tr>
+                  <th>Número</th>
+                  <th>Fecha</th>
+                  <th>Precio Total</th>
+                  <th>Compras</th>
+                  <th>% Gastado</th>
+                  <th>Diferencia</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+
+          <!-- Vista por Supervisor -->
+          <div
+            id="cotizaciones-supervisor"
+            class="table-container"
+            style="display: none"
+          >
+            <div class="table-header">
+              <h2 id="titulo-cotizaciones-supervisor">
+                Cotizaciones con Gastos por Supervisor
+              </h2>
+              <div class="view-toggle">
+                <button
+                  class="toggle-btn"
+                  onclick="toggleCotizacionesView('detalle')"
+                >
+                  Por Cotización
+                </button>
+                <button
+                  class="toggle-btn active"
+                  onclick="toggleCotizacionesView('supervisor')"
+                >
+                  Por Supervisor
+                </button>
+              </div>
+            </div>
+            <table id="tabla-cotizaciones-supervisor">
+              <thead>
+                <tr>
+                  <th>Supervisor</th>
+                  <th>Cotizaciones</th>
+                  <th>Presupuestado</th>
+                  <th>Gastado</th>
+                  <th>Diferencia</th>
+                  <th>Pagadas</th>
+                  <th>Pendientes</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab: Oportunidades -->
+        <div id="tab-oportunidades" class="tab-content">
+          <!-- Vista por Cotización -->
+          <div id="oportunidades-detalle" class="table-container">
+            <div class="table-header">
+              <h2 id="titulo-oportunidades-detalle">
+                Cotizaciones con Oportunidades
+              </h2>
+              <div class="view-toggle">
+                <button
+                  class="toggle-btn active"
+                  onclick="toggleOportunidadesView('detalle')"
+                >
+                  Por Cotización
+                </button>
+                <button
+                  class="toggle-btn"
+                  onclick="toggleOportunidadesView('supervisor')"
+                >
+                  Por Supervisor
+                </button>
+              </div>
+            </div>
+            <table id="tabla-oportunidades">
+              <thead>
+                <tr>
+                  <th>Cotización</th>
+                  <th>Oportunidad</th>
+                  <th>Supervisores</th>
+                  <th>Ingreso</th>
+                  <th>Gasto</th>
+                  <th>% Gastado</th>
+                  <th>Margen</th>
+                  <th>Facturado</th>
+                  <th>Estado Pago</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+
+          <!-- Vista por Supervisor -->
+          <div
+            id="oportunidades-supervisor"
+            class="table-container"
+            style="display: none"
+          >
+            <div class="table-header">
+              <h2 id="titulo-oportunidades-supervisor">
+                Oportunidades por Supervisor
+              </h2>
+              <div class="view-toggle">
+                <button
+                  class="toggle-btn"
+                  onclick="toggleOportunidadesView('detalle')"
+                >
+                  Por Cotización
+                </button>
+                <button
+                  class="toggle-btn active"
+                  onclick="toggleOportunidadesView('supervisor')"
+                >
+                  Por Supervisor
+                </button>
+              </div>
+            </div>
+            <table id="tabla-oportunidades-supervisor">
+              <thead>
+                <tr>
+                  <th>Supervisor</th>
+                  <th>Cotizaciones</th>
+                  <th>Oportunidades</th>
+                  <th>Ingreso Total</th>
+                  <th>Gasto Total</th>
+                  <th>Margen</th>
+                  <th>Monto Cobrado</th>
+                  <th>Por Cobrar</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let rawData = null; // JSON completo con datos_por_mes
+      let dashboardData = null; // Datos filtrados/combinados activos
+      let currentMonth = "todos";
+      let charts = {};
+
+      // ── Navegación de tabs ──
+      function showTab(tabName) {
+        document
+          .querySelectorAll(".tab")
+          .forEach((tab) => tab.classList.remove("active"));
+        document
+          .querySelectorAll(".tab-content")
+          .forEach((content) => content.classList.remove("active"));
+        document
+          .querySelector(`[onclick="showTab('${tabName}')"]`)
+          .classList.add("active");
+        document.getElementById(`tab-${tabName}`).classList.add("active");
+      }
+
+      function toggleCotizacionesView(view) {
+        const detalleDiv = document.getElementById("cotizaciones-detalle");
+        const supervisorDiv = document.getElementById(
+          "cotizaciones-supervisor",
+        );
+        detalleDiv.style.display = view === "detalle" ? "block" : "none";
+        supervisorDiv.style.display = view === "supervisor" ? "block" : "none";
+        const buttons = document.querySelectorAll(
+          "#tab-cotizaciones .toggle-btn",
+        );
+        buttons.forEach((btn) => btn.classList.remove("active"));
+        buttons[view === "detalle" ? 0 : 1].classList.add("active");
+      }
+
+      function toggleOportunidadesView(view) {
+        const detalleDiv = document.getElementById("oportunidades-detalle");
+        const supervisorDiv = document.getElementById(
+          "oportunidades-supervisor",
+        );
+        detalleDiv.style.display = view === "detalle" ? "block" : "none";
+        supervisorDiv.style.display = view === "supervisor" ? "block" : "none";
+        const buttons = document.querySelectorAll(
+          "#tab-oportunidades .toggle-btn",
+        );
+        buttons.forEach((btn) => btn.classList.remove("active"));
+        buttons[view === "detalle" ? 0 : 1].classList.add("active");
+      }
+
+      // ── Utilidades de formato ──
+      function guardarMontoShari(input) {
+        const shariKey = "shari_monto_" + currentMonth;
+        const raw = input.value.replace(/,/g, "");
+        localStorage.setItem(shariKey, raw);
+      }
+
+      function formatearInputShari(input) {
+        let raw = input.value.replace(/,/g, "").replace(/[^0-9.]/g, "");
+        if (!raw) return;
+        const num = parseFloat(raw);
+        if (!isNaN(num)) {
+          input.value = num.toLocaleString("en-US");
+        }
+        guardarMontoShari(input);
+      }
+
+      function limpiarInputShari(input) {
+        input.value = input.value.replace(/,/g, "");
+      }
+
+      function formatCurrency(value) {
+        return (
+          "$" +
+          (value || 0).toLocaleString("es-MX", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })
+        );
+      }
+
+      function formatDate(dateString) {
+        const date = new Date(dateString + "T00:00:00");
+        return date.toLocaleDateString("es-MX", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        });
+      }
+
+      // ── Selección de mes y combinación de datos ──
+      function buildMonthFilter() {
+        const container = document.getElementById("month-filter");
+        let html = '<span class="month-filter-label">Período:</span>';
+        html += `<button class="month-btn active" onclick="selectMonth('todos')">Todos</button>`;
+        rawData.meses_disponibles.forEach((mes) => {
+          html += `<button class="month-btn" onclick="selectMonth('${mes.key}')">${mes.label}</button>`;
+        });
+        container.innerHTML = html;
+      }
+
+      function selectMonth(monthKey) {
+        currentMonth = monthKey;
+        // Actualizar botones
+        document
+          .querySelectorAll(".month-btn")
+          .forEach((btn) => btn.classList.remove("active"));
+        const buttons = document.querySelectorAll(".month-btn");
+        buttons.forEach((btn) => {
+          if (
+            (monthKey === "todos" && btn.textContent === "Todos") ||
+            btn.getAttribute("onclick") === `selectMonth('${monthKey}')`
+          ) {
+            btn.classList.add("active");
+          }
+        });
+
+        dashboardData = getFilteredData(monthKey);
+        updateAllViews();
+        updateTitles(monthKey);
+      }
+
+      function getFilteredData(monthKey) {
+        if (monthKey !== "todos") {
+          return rawData.datos_por_mes[monthKey];
+        }
+        // Combinar todos los meses
+        return mergeAllMonths();
+      }
+
+      function mergeAllMonths() {
+        const merged = {
+          periodo: "Todos los Meses",
+          cotizaciones_por_supervisor: [],
+          cotizaciones_con_gastos: [],
+          cotizaciones_con_gastos_por_supervisor: [],
+          cotizaciones_con_oportunidad: [],
+          cotizaciones_con_oportunidad_por_supervisor: [],
+        };
+
+        const keys = Object.keys(rawData.datos_por_mes);
+
+        // Cotizaciones individuales: simplemente concatenar
+        keys.forEach((k) => {
+          const d = rawData.datos_por_mes[k];
+          merged.cotizaciones_con_gastos =
+            merged.cotizaciones_con_gastos.concat(
+              d.cotizaciones_con_gastos || [],
+            );
+          merged.cotizaciones_con_oportunidad =
+            merged.cotizaciones_con_oportunidad.concat(
+              d.cotizaciones_con_oportunidad || [],
+            );
+        });
+
+        // Agregar por supervisor_id para datos agrupados
+        merged.cotizaciones_por_supervisor = mergeBySupervisor(
+          keys.map(
+            (k) => rawData.datos_por_mes[k].cotizaciones_por_supervisor || [],
+          ),
+          [
+            "num_cotizaciones",
+            "venta_total",
+            "venta_promedio",
+            "gasto_mes",
+            "num_compras_mes",
+            "suma_mano_obra",
+            "margen_estimado",
+            "margen_real",
+            "compras_facturadas",
+            "compras_pagadas",
+            "compras_concluidas",
+            "total_materiales",
+            "total_mano_obra_tipo",
+            "monto_pendiente_pagar_proveedores",
+          ],
+        );
+
+        merged.cotizaciones_con_gastos_por_supervisor = mergeBySupervisor(
+          keys.map(
+            (k) =>
+              rawData.datos_por_mes[k].cotizaciones_con_gastos_por_supervisor ||
+              [],
+          ),
+          [
+            "num_cotizaciones_con_gastos",
+            "total_presupuestado",
+            "total_costo_cotizado",
+            "total_gastado_mes",
+            "diferencia_presupuesto_vs_gasto",
+            "cotizaciones_totalmente_pagadas",
+            "cotizaciones_con_pagos_pendientes",
+            "cotizaciones_totalmente_facturadas",
+            "cotizaciones_concluidas",
+            "monto_pendiente_pago",
+          ],
+        );
+
+        merged.cotizaciones_con_oportunidad_por_supervisor = mergeBySupervisor(
+          keys.map(
+            (k) =>
+              rawData.datos_por_mes[k]
+                .cotizaciones_con_oportunidad_por_supervisor || [],
+          ),
+          [
+            "num_cotizaciones",
+            "num_oportunidades",
+            "ingreso_total_presupuestado",
+            "costo_total_cotizado",
+            "margen_estimado_total",
+            "gasto_real_mes",
+            "num_compras_mes",
+            "margen_real",
+            "oportunidades_facturadas",
+            "oportunidades_sin_facturar",
+            "monto_facturado",
+            "monto_pendiente_facturar",
+            "oportunidades_cobradas",
+            "oportunidades_pendiente_cobro",
+            "monto_cobrado",
+            "monto_por_cobrar",
+            "oportunidades_concluidas",
+            "oportunidades_en_proceso",
+            "cotizaciones_compras_pagadas",
+            "cotizaciones_compras_pendientes",
+            "monto_pendiente_pagar_proveedores",
+          ],
+        );
+
+        return merged;
+      }
+
+      function mergeBySupervisor(arraysOfArrays, sumFields) {
+        const map = {};
+        arraysOfArrays.forEach((arr) => {
+          (arr || []).forEach((item) => {
+            const id = item.supervisor_id;
+            if (!map[id]) {
+              map[id] = { ...item };
+              return;
+            }
+            sumFields.forEach((field) => {
+              map[id][field] = (map[id][field] || 0) + (item[field] || 0);
+            });
+          });
+        });
+        return Object.values(map);
+      }
+
+      function updateTitles(monthKey) {
+        const label =
+          monthKey === "todos"
+            ? "Todos los Meses"
+            : rawData.meses_disponibles.find((m) => m.key === monthKey)
+                ?.label || monthKey;
+
+        document.getElementById("header-subtitle").textContent =
+          `Análisis de Cotizaciones y Compras - ${label}`;
+        document.getElementById("titulo-supervisores").textContent =
+          `Cotizaciones Enviadas por Supervisor - ${label}`;
+        document.getElementById("titulo-cotizaciones-detalle").textContent =
+          `Cotizaciones con Gastos - ${label}`;
+        document.getElementById("titulo-cotizaciones-supervisor").textContent =
+          `Cotizaciones con Gastos por Supervisor - ${label}`;
+        document.getElementById("titulo-oportunidades-detalle").textContent =
+          `Cotizaciones con Oportunidades - ${label}`;
+        document.getElementById("titulo-oportunidades-supervisor").textContent =
+          `Oportunidades por Supervisor - ${label}`;
+      }
+
+      function updateAllViews() {
+        crearResumenCards(dashboardData);
+        llenarTablaSupervisores(dashboardData);
+        llenarTablaCotizaciones(dashboardData);
+        llenarTablaCotizacionesSupervisor(dashboardData);
+        llenarTablaOportunidades(dashboardData);
+        llenarTablaOportunidadesSupervisor(dashboardData);
+      }
+
+      // ── Tarjetas de resumen ──
+      function crearResumenCards(data) {
+        const supervisores = data.cotizaciones_por_supervisor || [];
+        const periodoLabel =
+          currentMonth === "todos"
+            ? "todos los meses"
+            : rawData.meses_disponibles.find((m) => m.key === currentMonth)
+                ?.label || currentMonth;
+
+        const totalCotizaciones = supervisores.reduce(
+          (sum, s) => sum + (s.num_cotizaciones || 0),
+          0,
+        );
+        const totalVentas = supervisores.reduce(
+          (sum, s) => sum + (s.venta_total || 0),
+          0,
+        );
+        const totalGastos = supervisores.reduce(
+          (sum, s) => sum + (s.gasto_mes || 0),
+          0,
+        );
+        const totalMargen = totalVentas - totalGastos;
+
+        const cotizacionesFacturadas = (
+          data.cotizaciones_con_oportunidad || []
+        ).filter((c) => c.estado_facturacion === "Facturado").length;
+        const porcentajeConversion =
+          totalCotizaciones > 0
+            ? (cotizacionesFacturadas / totalCotizaciones) * 100
+            : 0;
+
+        const cotizacionesActivas = (data.cotizaciones_con_gastos || []).length;
+        const porcentajeActivas =
+          totalCotizaciones > 0
+            ? (cotizacionesActivas / totalCotizaciones) * 100
+            : 0;
+
+        const ventasActivas = (data.cotizaciones_con_gastos || []).reduce(
+          (sum, cot) => sum + (cot.precio_total || 0),
+          0,
+        );
+
+        const montoFacturado = (data.cotizaciones_con_oportunidad || [])
+          .filter((c) => c.estado_facturacion === "Facturado")
+          .reduce((sum, c) => sum + (c.ingreso_presupuestado || 0), 0);
+
+        const montoPagado = 30000;
+
+        // Recuperar valor guardado de Shari y formatearlo
+        const shariKey = "shari_monto_" + currentMonth;
+        const shariRaw = localStorage.getItem(shariKey) || "";
+        const shariGuardado =
+          shariRaw && !isNaN(parseFloat(shariRaw))
+            ? parseFloat(shariRaw).toLocaleString("en-US")
+            : shariRaw;
+
+        const html = `
+          <div class="card" style="border-color: #c4b5fd;">
+            <div class="card-title" style="color: #7c3aed;">Total Cot. Enviadas $ de Shari</div>
+            <input type="text" class="shari-input" id="shari-input"
+              placeholder="Ingresa monto..."
+              value="${shariGuardado}"
+              onfocus="limpiarInputShari(this)"
+              onblur="formatearInputShari(this)"
+            />
+            <div class="card-subtitle" style="margin-top: 6px;">Escribe el monto para comparar</div>
+          </div>
+          <div class="card info">
+            <div class="card-title">Total Cotizaciones</div>
+            <div class="card-value">${totalCotizaciones}</div>
+            <div class="card-subtitle">Enviadas en ${periodoLabel}</div>
+          </div>
+          <div class="card positive">
+            <div class="card-title">Total de Cotizaciones Enviadas ($)</div>
+            <div class="card-value">${formatCurrency(totalVentas)}</div>
+            <div class="card-subtitle">Ingresos del período</div>
+          </div>
+          <div class="card info">
+            <div class="card-title">Ventas de Cotizaciones Activas</div>
+            <div class="card-value">${formatCurrency(ventasActivas)}</div>
+            <div class="card-subtitle">${cotizacionesActivas} cotizaciones con compras</div>
+          </div>
+          <div class="card positive">
+            <div class="card-title">Total Facturado</div>
+            <div class="card-value">${formatCurrency(montoFacturado)}</div>
+            <div class="card-subtitle">${cotizacionesFacturadas} cotizaciones facturadas</div>
+          </div>
+          <div class="card warning">
+            <div class="card-title">Gastos Totales en Proyectos ($)</div>
+            <div class="card-value">${formatCurrency(totalGastos)}</div>
+            <div class="card-subtitle">Compras realizadas</div>
+          </div>
+          <div class="card info">
+            <div class="card-title">% Conversión a Facturado</div>
+            <div class="card-value">${porcentajeConversion.toFixed(1)}%</div>
+            <div class="card-subtitle">${cotizacionesFacturadas} de ${totalCotizaciones} cotizaciones facturadas con oportunidad</div>
+          </div>
+          <div class="card warning">
+            <div class="card-title">Cotizaciones Activas</div>
+            <div class="card-value">${porcentajeActivas.toFixed(1)}%</div>
+            <div class="card-subtitle">${cotizacionesActivas} cotizaciones con compras registradas</div>
+          </div>
+          <div class="card positive">
+            <div class="card-title">Cotizaciones Pagadas</div>
+            <div class="card-value">${formatCurrency(montoPagado)}</div>
+            <div class="card-subtitle">⚠️ Implementación pendiente: capturar fecha de factura y pago</div>
+          </div>
+        `;
+
+        document.getElementById("resumen-cards").innerHTML = html;
+        createCharts(data);
+      }
+
+      // ── Tabla de supervisores ──
+      function llenarTablaSupervisores(data) {
+        const tbody = document.querySelector("#tabla-supervisores tbody");
+        const supervisores = [...(data.cotizaciones_por_supervisor || [])].sort(
+          (a, b) => b.num_cotizaciones - a.num_cotizaciones,
+        );
+
+        let totalCotizaciones = 0,
+          totalVentas = 0;
+        let html = "";
+        supervisores.forEach((sup) => {
+          totalCotizaciones += sup.num_cotizaciones;
+          totalVentas += sup.venta_total;
+          html += `<tr><td><strong>${sup.supervisor_nombre}</strong></td><td>${sup.num_cotizaciones}</td><td>${formatCurrency(sup.venta_total)}</td></tr>`;
+        });
+        html += `<tr class="total-row"><td><strong>TOTAL</strong></td><td>${totalCotizaciones}</td><td>${formatCurrency(totalVentas)}</td></tr>`;
+        tbody.innerHTML = html;
+      }
+
+      // ── Tabla cotizaciones detalle ──
+      function llenarTablaCotizaciones(data) {
+        const tbody = document.querySelector("#tabla-cotizaciones tbody");
+        const cotizaciones = [...(data.cotizaciones_con_gastos || [])].sort(
+          (a, b) => (b.total_compras_mes || 0) - (a.total_compras_mes || 0),
+        );
+
+        let totalPrecio = 0,
+          totalCompras = 0,
+          totalDiferencia = 0;
+        let html = "";
+        cotizaciones.forEach((cot) => {
+          const compras = cot.total_compras_mes || 0;
+          const porcentajeGastado =
+            cot.precio_total > 0 ? (compras / cot.precio_total) * 100 : 0;
+          let porcentajeClass = "percent-good";
+          if (porcentajeGastado > 100) porcentajeClass = "percent-bad";
+          else if (porcentajeGastado > 80) porcentajeClass = "percent-warning";
+
+          totalPrecio += cot.precio_total;
+          totalCompras += compras;
+          totalDiferencia += cot.diferencia;
+
+          html += `<tr>
+            <td><strong>${cot.numero_cotizacion}</strong></td>
+            <td>${formatDate(cot.fecha_cotizacion)}</td>
+            <td>${formatCurrency(cot.precio_total)}</td>
+            <td>${formatCurrency(compras)}</td>
+            <td class="percent-cell ${porcentajeClass}">${porcentajeGastado.toFixed(1)}%</td>
+            <td class="${cot.diferencia >= 0 ? "percent-good" : "percent-bad"}">${formatCurrency(cot.diferencia)}</td>
+          </tr>`;
+        });
+
+        const porcentajeTotalGastado =
+          totalPrecio > 0 ? (totalCompras / totalPrecio) * 100 : 0;
+        html += `<tr class="total-row">
+          <td colspan="2"><strong>TOTAL</strong></td>
+          <td>${formatCurrency(totalPrecio)}</td>
+          <td>${formatCurrency(totalCompras)}</td>
+          <td class="percent-cell">${porcentajeTotalGastado.toFixed(1)}%</td>
+          <td class="${totalDiferencia >= 0 ? "percent-good" : "percent-bad"}">${formatCurrency(totalDiferencia)}</td>
+        </tr>`;
+        tbody.innerHTML = html;
+      }
+
+      // ── Tabla cotizaciones por supervisor ──
+      function llenarTablaCotizacionesSupervisor(data) {
+        const tbody = document.querySelector(
+          "#tabla-cotizaciones-supervisor tbody",
+        );
+        const supervisores = [
+          ...(data.cotizaciones_con_gastos_por_supervisor || []),
+        ].sort(
+          (a, b) => (b.total_gastado_mes || 0) - (a.total_gastado_mes || 0),
+        );
+
+        let totalCotizaciones = 0,
+          totalPresupuestado = 0,
+          totalGastado = 0,
+          totalDiferencia = 0,
+          totalPagadas = 0,
+          totalPendientes = 0;
+        let html = "";
+        supervisores.forEach((sup) => {
+          totalCotizaciones += sup.num_cotizaciones_con_gastos;
+          totalPresupuestado += sup.total_presupuestado;
+          totalGastado += sup.total_gastado_mes || 0;
+          totalDiferencia += sup.diferencia_presupuesto_vs_gasto;
+          totalPagadas += sup.cotizaciones_totalmente_pagadas;
+          totalPendientes += sup.cotizaciones_con_pagos_pendientes;
+
+          html += `<tr>
+            <td><strong>${sup.supervisor_nombre}</strong></td>
+            <td>${sup.num_cotizaciones_con_gastos}</td>
+            <td>${formatCurrency(sup.total_presupuestado)}</td>
+            <td>${formatCurrency(sup.total_gastado_mes || 0)}</td>
+            <td class="${sup.diferencia_presupuesto_vs_gasto >= 0 ? "percent-good" : "percent-bad"}">${formatCurrency(sup.diferencia_presupuesto_vs_gasto)}</td>
+            <td>${sup.cotizaciones_totalmente_pagadas}</td>
+            <td>${sup.cotizaciones_con_pagos_pendientes}</td>
+          </tr>`;
+        });
+
+        html += `<tr class="total-row">
+          <td><strong>TOTAL</strong></td>
+          <td>${totalCotizaciones}</td>
+          <td>${formatCurrency(totalPresupuestado)}</td>
+          <td>${formatCurrency(totalGastado)}</td>
+          <td class="${totalDiferencia >= 0 ? "percent-good" : "percent-bad"}">${formatCurrency(totalDiferencia)}</td>
+          <td>${totalPagadas}</td>
+          <td>${totalPendientes}</td>
+        </tr>`;
+        tbody.innerHTML = html;
+      }
+
+      // ── Tabla oportunidades detalle ──
+      function llenarTablaOportunidades(data) {
+        const tbody = document.querySelector("#tabla-oportunidades tbody");
+        const oportunidades = [
+          ...(data.cotizaciones_con_oportunidad || []),
+        ].sort((a, b) => b.ingreso_presupuestado - a.ingreso_presupuestado);
+
+        let totalIngreso = 0,
+          totalGasto = 0,
+          totalMargen = 0;
+        let html = "";
+        oportunidades.forEach((op) => {
+          const gastoReal = op.gasto_real_mes || 0;
+          const porcentajeGastado =
+            op.ingreso_presupuestado > 0
+              ? (gastoReal / op.ingreso_presupuestado) * 100
+              : 0;
+          let porcentajeClass = "percent-good";
+          if (porcentajeGastado > 100) porcentajeClass = "percent-bad";
+          else if (porcentajeGastado > 80) porcentajeClass = "percent-warning";
+
+          totalIngreso += op.ingreso_presupuestado;
+          totalGasto += gastoReal;
+          totalMargen += op.margen_real;
+
+          const facturadoBadge =
+            op.estado_facturacion === "Facturado"
+              ? '<span class="badge success">Sí</span>'
+              : '<span class="badge warning">No</span>';
+          const pagoBadge =
+            op.estado_pago_compras === "Todo pagado"
+              ? '<span class="badge success">Pagado</span>'
+              : op.estado_pago_compras === "Sin compras"
+                ? '<span class="badge info">Sin compras</span>'
+                : '<span class="badge danger">Pendiente</span>';
+
+          html += `<tr>
+            <td><strong>${op.numero_cotizacion}</strong></td>
+            <td>${op.codigo_op}</td>
+            <td>${op.supervisores_asignados}</td>
+            <td>${formatCurrency(op.ingreso_presupuestado)}</td>
+            <td>${formatCurrency(gastoReal)}</td>
+            <td class="percent-cell ${porcentajeClass}">${porcentajeGastado.toFixed(1)}%</td>
+            <td class="${op.margen_real >= 0 ? "percent-good" : "percent-bad"}">${formatCurrency(op.margen_real)}</td>
+            <td>${facturadoBadge}</td>
+            <td>${pagoBadge}</td>
+          </tr>`;
+        });
+
+        const porcentajeTotalGastado =
+          totalIngreso > 0 ? (totalGasto / totalIngreso) * 100 : 0;
+        html += `<tr class="total-row">
+          <td colspan="3"><strong>TOTAL</strong></td>
+          <td>${formatCurrency(totalIngreso)}</td>
+          <td>${formatCurrency(totalGasto)}</td>
+          <td class="percent-cell">${porcentajeTotalGastado.toFixed(1)}%</td>
+          <td class="${totalMargen >= 0 ? "percent-good" : "percent-bad"}">${formatCurrency(totalMargen)}</td>
+          <td colspan="2"></td>
+        </tr>`;
+        tbody.innerHTML = html;
+      }
+
+      // ── Tabla oportunidades por supervisor ──
+      function llenarTablaOportunidadesSupervisor(data) {
+        const tbody = document.querySelector(
+          "#tabla-oportunidades-supervisor tbody",
+        );
+        const supervisores = [
+          ...(data.cotizaciones_con_oportunidad_por_supervisor || []),
+        ].sort(
+          (a, b) =>
+            b.ingreso_total_presupuestado - a.ingreso_total_presupuestado,
+        );
+
+        let totalCotizaciones = 0,
+          totalOportunidades = 0,
+          totalIngreso = 0,
+          totalGasto = 0,
+          totalMargen = 0,
+          totalCobrado = 0,
+          totalPorCobrar = 0;
+        let html = "";
+        supervisores.forEach((sup) => {
+          const gastoReal = sup.gasto_real_mes || 0;
+          totalCotizaciones += sup.num_cotizaciones;
+          totalOportunidades += sup.num_oportunidades;
+          totalIngreso += sup.ingreso_total_presupuestado;
+          totalGasto += gastoReal;
+          totalMargen += sup.margen_real;
+          totalCobrado += sup.monto_cobrado;
+          totalPorCobrar += sup.monto_por_cobrar;
+
+          html += `<tr>
+            <td><strong>${sup.supervisor_nombre}</strong></td>
+            <td>${sup.num_cotizaciones}</td>
+            <td>${sup.num_oportunidades}</td>
+            <td>${formatCurrency(sup.ingreso_total_presupuestado)}</td>
+            <td>${formatCurrency(gastoReal)}</td>
+            <td class="${sup.margen_real >= 0 ? "percent-good" : "percent-bad"}">${formatCurrency(sup.margen_real)}</td>
+            <td>${formatCurrency(sup.monto_cobrado)}</td>
+            <td>${formatCurrency(sup.monto_por_cobrar)}</td>
+          </tr>`;
+        });
+
+        html += `<tr class="total-row">
+          <td><strong>TOTAL</strong></td>
+          <td>${totalCotizaciones}</td>
+          <td>${totalOportunidades}</td>
+          <td>${formatCurrency(totalIngreso)}</td>
+          <td>${formatCurrency(totalGasto)}</td>
+          <td class="${totalMargen >= 0 ? "percent-good" : "percent-bad"}">${formatCurrency(totalMargen)}</td>
+          <td>${formatCurrency(totalCobrado)}</td>
+          <td>${formatCurrency(totalPorCobrar)}</td>
+        </tr>`;
+        tbody.innerHTML = html;
+      }
+
+      // ── Gráficas ──
+      function createCharts(data) {
+        Object.values(charts).forEach((chart) => chart.destroy());
+        charts = {};
+
+        const top10Supervisores = [...(data.cotizaciones_por_supervisor || [])]
+          .sort((a, b) => b.venta_total - a.venta_total)
+          .slice(0, 20);
+
+        // Mapas para datasets
+        const ventasConComprasPorSupervisor = {};
+        (data.cotizaciones_con_gastos_por_supervisor || []).forEach((sup) => {
+          ventasConComprasPorSupervisor[sup.supervisor_id] =
+            sup.total_presupuestado;
+        });
+
+        const ventasFacturadasPorSupervisor = {};
+        (data.cotizaciones_con_oportunidad || [])
+          .filter((c) => c.estado_facturacion === "Facturado")
+          .forEach((cot) => {
+            const supervisores = cot.supervisores_asignados.split(", ");
+            const montoPorSupervisor =
+              cot.ingreso_presupuestado / supervisores.length;
+            supervisores.forEach((sup) => {
+              ventasFacturadasPorSupervisor[sup] =
+                (ventasFacturadasPorSupervisor[sup] || 0) + montoPorSupervisor;
+            });
+          });
+
+        charts.ventasGastos = new Chart(
+          document.getElementById("chartVentasGastos"),
+          {
+            type: "bar",
+            data: {
+              labels: top10Supervisores.map(
+                (s) => s.supervisor_nombre.split(" ")[0],
+              ),
+              datasets: [
+                {
+                  label: "Cot. Enviadas",
+                  data: top10Supervisores.map((s) => s.venta_total),
+                  backgroundColor: "#2563eb",
+                  borderRadius: 4,
+                },
+                {
+                  label: "Cot. con Compras",
+                  data: top10Supervisores.map(
+                    (s) => ventasConComprasPorSupervisor[s.supervisor_id] || 0,
+                  ),
+                  backgroundColor: "#7c3aed",
+                  borderRadius: 4,
+                },
+                {
+                  label: "Cot. Facturadas",
+                  data: top10Supervisores.map(
+                    (s) =>
+                      ventasFacturadasPorSupervisor[s.supervisor_nombre] || 0,
+                  ),
+                  backgroundColor: "#059669",
+                  borderRadius: 4,
+                },
+                {
+                  label: "Gastos en Cot.",
+                  data: top10Supervisores.map((s) => s.gasto_mes || 0),
+                  backgroundColor: "#f59e0b",
+                  borderRadius: 4,
+                },
+              ],
+            },
+            options: {
+              indexAxis: "y",
+              responsive: true,
+              maintainAspectRatio: true,
+              plugins: { legend: { position: "top" } },
+              scales: {
+                x: {
+                  beginAtZero: true,
+                  ticks: { callback: (v) => "$" + (v / 1000).toFixed(0) + "k" },
+                },
+              },
+            },
+          },
+        );
+
+        const supervisorCotizaciones = [
+          ...(data.cotizaciones_por_supervisor || []),
+        ]
+          .sort((a, b) => b.num_cotizaciones - a.num_cotizaciones)
+          .slice(0, 20);
+
+        charts.cotizaciones = new Chart(
+          document.getElementById("chartCotizaciones"),
+          {
+            type: "doughnut",
+            data: {
+              labels: supervisorCotizaciones.map(
+                (s) =>
+                  `${s.supervisor_nombre.split(" ")[0]} (${s.num_cotizaciones} - $${(s.venta_total / 1000).toFixed(0)}k)`,
+              ),
+              datasets: [
+                {
+                  data: supervisorCotizaciones.map((s) => s.num_cotizaciones),
+                  backgroundColor: [
+                    "#2563eb",
+                    "#7c3aed",
+                    "#db2777",
+                    "#dc2626",
+                    "#ea580c",
+                    "#d97706",
+                    "#059669",
+                    "#0891b2",
+                  ],
+                  borderWidth: 2,
+                  borderColor: "#fff",
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: true,
+              plugins: { legend: { position: "right" } },
+            },
+          },
+        );
+      }
+
+      // ── Carga inicial ──
+      async function cargarDatos() {
+        try {
+          const response = await fetch("dashboard_data.json");
+          rawData = await response.json();
+
+          buildMonthFilter();
+          dashboardData = getFilteredData("todos");
+          updateAllViews();
+          updateTitles("todos");
+
+          document.getElementById("loading").style.display = "none";
+          document.getElementById("content").style.display = "block";
+        } catch (error) {
+          console.error("Error cargando datos:", error);
+          document.getElementById("loading").innerHTML = `
+            <h2 style="color: #dc2626;">Error al cargar los datos</h2>
+            <p>Asegúrate de que el archivo dashboard_data.json existe y está en el mismo directorio.</p>
+          `;
+        }
+      }
+
+      window.addEventListener("DOMContentLoaded", cargarDatos);
+    </script>
+  </body>
+</html>

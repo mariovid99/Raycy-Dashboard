@@ -1,0 +1,172 @@
+/* Ajustes específicos de vistas — Raycy Dashboard */
+
+/* ===== Command bar de filtros ===== */
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-5);
+  flex-wrap: wrap;
+}
+.filter-bar__label {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-xs);
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.filter-select {
+  height: 32px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-subtle);
+  font-size: var(--fs-sm);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+.filter-select:focus {
+  outline: none;
+  border-color: var(--blue-400);
+  box-shadow: var(--shadow-focus);
+}
+
+/* ===== Supervisor detail expandida ===== */
+.supervisor-detail {
+  background: var(--bg-subtle);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  padding: var(--space-6);
+  border-top: 2px solid var(--blue-100);
+  display: none;
+}
+.supervisor-detail.is-open { display: block; }
+
+/* ===== Vista Kanban ===== */
+.kanban {
+  display: flex;
+  gap: var(--space-4);
+  overflow-x: auto;
+  padding-bottom: var(--space-4);
+}
+.kanban__col {
+  flex: 0 0 260px;
+  background: var(--bg-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+.kanban__col-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+.kanban__col-title {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.kanban__count {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--text-tertiary);
+  background: var(--bg-muted);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+}
+.kanban__card {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-2);
+  box-shadow: var(--shadow-1);
+  cursor: pointer;
+  transition: box-shadow var(--dur-micro) var(--ease);
+}
+.kanban__card:hover { box-shadow: var(--shadow-2); }
+.kanban__card-num { font-size: var(--fs-xs); color: var(--text-tertiary); }
+.kanban__card-val { font-size: var(--fs-sm); font-weight: 600; font-variant-numeric: tabular-nums; color: var(--text-primary); }
+
+/* ===== Riesgo items ===== */
+.riesgo-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.riesgo-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: var(--danger-bg);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: box-shadow var(--dur-micro) var(--ease);
+}
+.riesgo-item:hover { box-shadow: var(--shadow-1); }
+.riesgo-item__num { font-size: var(--fs-sm); font-weight: 600; color: var(--danger-fg); min-width: 80px; }
+.riesgo-item__bars { flex: 1; }
+.riesgo-item__perdida { font-size: var(--fs-sm); font-weight: 700; color: var(--danger-fg); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* ===== Timeline de cotización ===== */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.timeline__item {
+  display: flex;
+  gap: var(--space-4);
+  position: relative;
+}
+.timeline__item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 24px;
+  bottom: 0;
+  width: 2px;
+  background: var(--border-subtle);
+}
+.timeline__dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--blue-100);
+  border: 2px solid var(--blue-300);
+  flex-shrink: 0;
+  z-index: 1;
+}
+.timeline__dot--done {
+  background: var(--success-bg);
+  border-color: var(--success-fg);
+}
+.timeline__content {
+  flex: 1;
+  padding-bottom: var(--space-4);
+}
+.timeline__content-label {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+.timeline__content-sub {
+  font-size: var(--fs-xs);
+  color: var(--text-tertiary);
+}
+
+/* ===== Analisis flujo cita ===== */
+.flujo-quote {
+  background: var(--blue-50);
+  border-left: 3px solid var(--blue-500);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--fs-sm);
+  color: var(--blue-800);
+  font-style: italic;
+  margin: var(--space-4) 0;
+}

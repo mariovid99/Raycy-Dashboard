@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAYCY · Dashboard de Compras</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/views.css">
+</head>
+<body>
+
+  <!-- Mensaje para pantallas pequeñas -->
+  <div class="small-screen-notice" role="alert">
+    <p>Mejor experiencia en pantallas grandes</p>
+    <p>Este dashboard esta optimizado para resoluciones de 1280px o mas. Puedes continuar navegando pero algunos elementos podrian no verse correctamente.</p>
+  </div>
+
+  <!-- Loading overlay -->
+  <div id="loading-overlay" class="loading-overlay" aria-live="polite" aria-label="Cargando dashboard">
+    <div class="loading-spinner"></div>
+    <p style="font-size:var(--fs-sm);color:var(--text-tertiary)">Cargando datos...</p>
+  </div>
+
+  <!-- Toast de error -->
+  <div id="toast" class="toast hidden" role="alert" aria-live="assertive"></div>
+
+  <!-- App shell -->
+  <div id="app">
+    <header id="topbar" class="topbar" role="banner"></header>
+    <main class="content" id="main" role="main">
+      <div id="view-content"></div>
+    </main>
+  </div>
+
+  <script type="module" src="assets/js/main.js"></script>
+</body>
+</html>
