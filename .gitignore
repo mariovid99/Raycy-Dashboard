@@ -1,5 +1,9 @@
 # Variables de entorno con credenciales
 .env
+*.env
+
+# Archivos con credenciales hardcodeadas de Azure/DB
+azure_postgres_connection.py
 
 # Python
 __pycache__/
